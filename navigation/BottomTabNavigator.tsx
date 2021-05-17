@@ -10,9 +10,10 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import MedTeam from '../screens/MedTeamScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, MedTeamParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -27,7 +28,7 @@ export default function BottomTabNavigator() {
         name="TabOne"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-home" color={color} />,
         }}
       />
       <BottomTab.Screen
@@ -37,7 +38,15 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
+       <BottomTab.Screen
+        name="MedTeam"
+        component={MedTeamNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-person" color={color} />,
+        }}
+      />
     </BottomTab.Navigator>
+    
   );
 }
 
@@ -57,7 +66,7 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        options={{ headerTitle: 'My TCH' }}
       />
     </TabOneStack.Navigator>
   );
@@ -71,8 +80,21 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        options={{ headerTitle: 'Voice Assistant' }}
       />
     </TabTwoStack.Navigator>
+  );
+}
+const MedTeamStack = createStackNavigator<MedTeamParamList>();
+
+function MedTeamNavigator() {
+  return (
+    <MedTeamStack.Navigator>
+      <MedTeamStack.Screen
+        name="MedTeam"
+        component={MedTeam}
+        options={{ headerTitle: 'TechDoc' }}
+      />
+    </MedTeamStack.Navigator>
   );
 }

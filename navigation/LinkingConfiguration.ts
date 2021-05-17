@@ -22,6 +22,11 @@ export default {
               TabTwoScreen: 'two',
             },
           },
+          MedTeam: {
+            screens: {
+              MedTeamScreen: 'three',
+            },
+          },
         },
       },
       NotFound: '*',

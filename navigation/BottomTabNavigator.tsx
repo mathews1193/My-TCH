@@ -93,7 +93,7 @@ function MedTeamNavigator() {
       <MedTeamStack.Screen
         name="MedTeam"
         component={MedTeam}
-        options={{ headerTitle: 'TechDoc' }}
+        options={{ headerTitle: 'Medical Team' }}
       />
     </MedTeamStack.Navigator>
   );

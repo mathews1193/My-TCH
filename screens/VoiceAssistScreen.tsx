@@ -6,6 +6,9 @@ export default function VoiceAssistScreen() {
   return (
     <View style={styles.container}> 
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <Text>Do you have a question for your team?</Text> 
+      <Text>Do you need information on your care plan?</Text>
+      <Text>Record your question below for your team.</Text>
       <Text style={styles.title}>Voice Assistant</Text>
       <View style={styles.button}>
       <Button
@@ -26,9 +29,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    marginTop: 30,
   },
   button: {
-    marginTop:10,
+    marginTop:40,
     height: 90,
     width: '80%',
   },

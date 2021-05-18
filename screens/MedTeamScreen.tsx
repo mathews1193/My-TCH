@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { StyleSheet, Image } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
 export default function MedTeamScreen() {
@@ -15,8 +13,16 @@ export default function MedTeamScreen() {
       />
       <Text style={styles.title}>Impatient Care Guide for: </Text>
       <Text> Patient Name</Text>
+      <Text> We will take care of you!</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-
+      <Image
+        style={styles.team}
+        source={{
+          uri: 'http://adamlowecreative.com/wp-content/uploads/2017/02/professional-doctor-headshot-400x600.jpg',
+        }}
+      />
+      <Text>Dr. James</Text>
+      <Text>Critical Care</Text>
     </View>
   );
 }
@@ -35,6 +41,12 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     width: 100,
     height: 100,
+    resizeMode: 'stretch',
+  },
+  team: {
+    marginBottom: 30,
+    width: 90,
+    height: 140,
     resizeMode: 'stretch',
   },
   separator: {

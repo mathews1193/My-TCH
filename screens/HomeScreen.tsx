@@ -45,19 +45,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
   },
   button: {
-    marginTop:10,
+    marginTop:5,
     height: 90,
     width: '80%',
   },
   logo: {
     marginBottom: 30,
-    width: 200,
-    height: 200,
+    width: 100,
+    height: 100,
     resizeMode: 'stretch',
   },
   separator: {

@@ -14,12 +14,12 @@ export type BottomTabParamList = {
   MedTeam: undefined;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
+export type HomeParamList = {
+  HomeScreen: undefined;
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type VoiceAssistParamList = {
+  VoiceAssistScreen: undefined;
 };
 
 export type MedTeamParamList = {

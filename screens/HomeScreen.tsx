@@ -1,15 +1,21 @@
 import * as React from 'react';
-import { Button } from 'react-native';
+import { Button, Image } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View} from '../components/Themed';
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <Text style={styles.title}>Welcome, Patient Name</Text>
+      <Image
+        style={styles.logo}
+        source={{
+          uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
+        }}
+      />
       <View style={styles.button}>
         <Button
         title="Medical Team"
@@ -41,11 +47,18 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: 'bold',
+    marginBottom: 20,
   },
   button: {
     marginTop:10,
     height: 90,
     width: '80%',
+  },
+  logo: {
+    marginBottom: 30,
+    width: 200,
+    height: 200,
+    resizeMode: 'stretch',
   },
   separator: {
     marginVertical: 2,

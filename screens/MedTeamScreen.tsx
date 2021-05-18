@@ -1,15 +1,22 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
-export default function MedTeam() {
+export default function MedTeamScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Impatient Care Guide for:  </Text>
+       <Image
+        style={styles.logo}
+        source={{
+          uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
+        }}
+      />
+      <Text style={styles.title}>Impatient Care Guide for: </Text>
+      <Text> Patient Name</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/MedTeam.tsx" />
+
     </View>
   );
 }
@@ -24,8 +31,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  logo: {
+    marginBottom: 30,
+    width: 100,
+    height: 100,
+    resizeMode: 'stretch',
+  },
   separator: {
-    marginVertical: 30,
+    marginVertical: 20,
     height: 1,
     width: '80%',
   },

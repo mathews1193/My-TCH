@@ -4,6 +4,8 @@
  */
 
 import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
@@ -11,9 +13,9 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import MedTeam from '../screens/MedTeamScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, MedTeamParamList } from '../types';
+import Home from '../screens/HomeScreen';
+import { BottomTabParamList, HomeParamList, VoiceAssistParamList, MedTeamParamList } from '../types';
+import VoiceAssist from '../screens/VoiceAssistScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -22,27 +24,27 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-home" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Voice Assist"
+        component={VoiceAssistNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <MaterialIcons name="record-voice-over" size={24} color={color} />,
         }}
       />
        <BottomTab.Screen
-        name="MedTeam"
+        name="Med Team"
         component={MedTeamNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-person" color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name="team" size={24} color= {color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -58,31 +60,31 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="HomeScreen"
+        component={Home}
         options={{ headerTitle: 'My TCH' }}
       />
-    </TabOneStack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const VoiceAssistStack = createStackNavigator<VoiceAssistParamList>();
 
-function TabTwoNavigator() {
+function VoiceAssistNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
+    <VoiceAssistStack.Navigator>
+      <VoiceAssistStack.Screen
+        name="VoiceAssistScreen"
+        component={VoiceAssist}
         options={{ headerTitle: 'Voice Assistant' }}
       />
-    </TabTwoStack.Navigator>
+    </VoiceAssistStack.Navigator>
   );
 }
 const MedTeamStack = createStackNavigator<MedTeamParamList>();

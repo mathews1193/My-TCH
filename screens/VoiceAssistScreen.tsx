@@ -1,23 +1,44 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import { Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
+import VoiceDictation from '../components/VoiceDictation';
 
-export default function VoiceAssistScreen() {
-  return (
-    <View style={styles.container}> 
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Text>Do you have a question for your team?</Text> 
-      <Text>Do you need information on your care plan?</Text>
-      <Text>Record your question below for your team.</Text>
-      <Text style={styles.title}>Voice Assistant</Text>
-      <View style={styles.button}>
-      <Button
-      title="Start"
-      type="outline"
-      />
+
+type State = {
+  question: string;
+  hasQuestion: boolean;
+}
+
+class VoiceAssistScreen extends Component<State> {
+  state = {
+    question: "Waiting for question...",
+    hasQuestion: false
+  }
+
+  updateQuestion = (question: string) => {
+    this.setState({question: question, hasQuestion: true});
+  }
+  sendQuestion = () => {
+    console.log("Sending " + this.state.question + " to the medical team");
+    this.setState({hasQuestion: false})
+  }
+
+  render() {
+    return (
+      <View style={styles.container}> 
+        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        <Text>Do you have a question for your team?</Text> 
+        <Text>Do you need information on your care plan?</Text>
+        <Text>Record your question below for your team.</Text>
+        <Text style={styles.title}>Voice Assistant</Text>
+        <View style={styles.button}>
+        <VoiceDictation updateQuestion={this.updateQuestion}/>
+        </View>
+        <Text>{this.state.question}</Text>
+        {this.state.hasQuestion && <Button title="Send Question" onPress={this.sendQuestion} />}
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -42,3 +63,5 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
+
+export default VoiceAssistScreen;

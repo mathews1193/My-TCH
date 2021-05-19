@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from '../Firebase'
 import { List} from 'react-native-paper';
 
-function Question({doc}) {
+function CarePlan({doc}) {
       async function toggleComplete() {
         await firebase.database().ref('todos/').child(doc.key).update ({complete: !doc.val().complete})
         console.log(doc.key)
@@ -28,4 +28,4 @@ function Question({doc}) {
   );
 }
 
-export default React.memo(Question);
+export default React.memo(CarePlan);

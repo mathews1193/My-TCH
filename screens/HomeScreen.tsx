@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Button, Image } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import { Text, View} from '../components/Themed';
 
-export default function HomeScreen( {  } ) {
+export default function HomeScreen( { navigation } ) {
   return (
     <View style={styles.container}>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
@@ -19,18 +20,21 @@ export default function HomeScreen( {  } ) {
         <Button
         title="Medical Team"
         type="outline"
+        onPress={() => navigation.navigate('MedTeam')} 
         />
         </View>
         <View style={styles.button}>
         <Button
         title="Care Plan"
         type="outline"
+        onPress={() => navigation.navigate('CarePlan')} 
         />
         </View>
         <View style={styles.button}>
         <Button
         title="Questions"
         type="outline"
+        onPress={() => navigation.navigate('Questions')} 
         />
       </View>
     </View>

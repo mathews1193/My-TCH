@@ -9,7 +9,7 @@ function Questions() {
     const [ todo, setTodo ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ todos, setTodos ] = useState([]);
-    const db = firebase.database().ref('todos/')
+    const db = firebase.database().ref('Questions/')
 
     async function addTodo(){
         await db.push({
@@ -49,9 +49,9 @@ function Questions() {
             
         />
 
-        <TextInput label={'New TODO'} value={todo} onChangeText={setTodo} />
-        <TextInput label={'Description'} value={description} onChangeText={setDescription} />
-        <Button onPress={() => addTodo()}> Add TODO </Button>
+        <TextInput label={'Question'} value={todo} onChangeText={setTodo} />
+        <TextInput label={'What Medical Staff member?'} value={description} onChangeText={setDescription} />
+        <Button onPress={() => addTodo()}> Add Question </Button>
         
         </View>
     )

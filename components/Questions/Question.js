@@ -4,12 +4,12 @@ import { List} from 'react-native-paper';
 
 function Question({doc}) {
       async function toggleComplete() {
-        await firebase.database().ref('todos/').child(doc.key).update ({complete: !doc.val().complete})
+        await firebase.database().ref('Questions/').child(doc.key).update ({complete: !doc.val().complete})
         console.log(doc.key)
       }
 
       function deleted(key){
-        firebase.database().ref(`todos/${key}`).remove()
+        firebase.database().ref(`Questions/${key}`).remove()
       }
 
   return (

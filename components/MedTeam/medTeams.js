@@ -2,10 +2,10 @@ import React ,{ useState, useEffect }from 'react';
 import { Appbar, TextInput, Button } from 'react-native-paper';
 import firebase from '../Firebase';
 import { FlatList, } from 'react-native-gesture-handler';
-import CarePlan from './carePlan';
+import MedTeams from './medTeam';
 import { View } from 'react-native';
 
-function CarePlans () {
+function medTeams () {
     const [ todo, setTodo ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ todos, setTodos ] = useState([]);
@@ -45,7 +45,7 @@ function CarePlans () {
         <FlatList 
             style={{flex:1, width:'100%'}}
             data={todos}
-            keyExtractor={(item) => item.key} renderItem={({item}) =><CarePlan {...item}  /> }
+            keyExtractor={(item) => item.key} renderItem={({item}) =><MedTeams {...item}  /> }
             
         />
 
@@ -58,4 +58,4 @@ function CarePlans () {
 }
   
 
-export default CarePlans;
+export default medTeams;

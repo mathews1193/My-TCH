@@ -4,35 +4,12 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View} from '../components/Themed';
 
-export default function HomeScreen( {  } ) {
+export default function CarePlanScreen(  ) {
   return (
     <View style={styles.container}>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <Text style={styles.title}>Welcome, Patient Name</Text>
-      <Image
-        style={styles.logo}
-        source={{
-          uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-        }}
-      />
-      <View style={styles.button}>
-        <Button
-        title="Medical Team"
-        type="outline"
-        />
-        </View>
-        <View style={styles.button}>
-        <Button
-        title="Care Plan"
-        type="outline"
-        />
-        </View>
-        <View style={styles.button}>
-        <Button
-        title="Questions"
-        type="outline"
-        />
-      </View>
+      
     </View>
   );
 }

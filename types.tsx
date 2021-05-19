@@ -9,8 +9,8 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Home: undefined;
+  VoiceAssist: undefined;
   MedTeam: undefined;
 };
 
@@ -23,5 +23,12 @@ export type VoiceAssistParamList = {
 };
 
 export type MedTeamParamList = {
-  MedTeam: undefined;
+  MedTeamScreen: undefined;
+};
+
+export type CarePlanParamList = {
+  CarePlanScreen: undefined;
+};
+export type QuestionsParamList = {
+  QuestionsScreen: undefined;
 };

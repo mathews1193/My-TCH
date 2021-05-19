@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Image } from 'react-native';
+import Questions from '../components/Questions/Questions';
 import { Text, View } from '../components/Themed';
 
 export default function MedTeamScreen() {
@@ -15,14 +16,7 @@ export default function MedTeamScreen() {
       <Text> Patient Name</Text>
       <Text> We will take care of you!</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Image
-        style={styles.team}
-        source={{
-          uri: 'http://adamlowecreative.com/wp-content/uploads/2017/02/professional-doctor-headshot-400x600.jpg',
-        }}
-      />
-      <Text>Dr. James</Text>
-      <Text>Critical Care</Text>
+      <Questions />
     </View>
   );
 }

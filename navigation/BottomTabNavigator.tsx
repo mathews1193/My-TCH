@@ -9,13 +9,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+
+import { BottomTabParamList, HomeParamList, VoiceAssistParamList, MedTeamParamList, CarePlanParamList, QuestionsParamList } from '../types';
+import CarePlan from '../screens/CarePlanScreen';
+import VoiceAssist from '../screens/VoiceAssistScreen';
 import MedTeam from '../screens/MedTeamScreen';
 import Home from '../screens/HomeScreen';
-import { BottomTabParamList, HomeParamList, VoiceAssistParamList, MedTeamParamList } from '../types';
-import VoiceAssist from '../screens/VoiceAssistScreen';
+import Questions from '../screens/QuestionsScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -34,14 +36,14 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Voice Assist"
+        name="VoiceAssist"
         component={VoiceAssistNavigator}
         options={{
           tabBarIcon: ({ color }) => <MaterialIcons name="record-voice-over" size={24} color={color} />,
         }}
       />
        <BottomTab.Screen
-        name="Med Team"
+        name="MedTeam"
         component={MedTeamNavigator}
         options={{
           tabBarIcon: ({ color }) => <AntDesign name="team" size={24} color= {color} />,
@@ -93,10 +95,38 @@ function MedTeamNavigator() {
   return (
     <MedTeamStack.Navigator>
       <MedTeamStack.Screen
-        name="MedTeam"
+        name="MedTeamScreen"
         component={MedTeam}
         options={{ headerTitle: 'Medical Team' }}
       />
     </MedTeamStack.Navigator>
+  );
+}
+
+const CarePlanStack = createStackNavigator<CarePlanParamList>();
+
+function CarePlanNavigator() {
+  return (
+    <CarePlanStack.Navigator>
+      <CarePlanStack.Screen
+        name="CarePlanScreen"
+        component={CarePlan}
+        options={{ headerTitle: 'Care Plan' }}
+      />
+    </CarePlanStack.Navigator>
+  );
+}
+
+const QuestionsStack = createStackNavigator<QuestionsParamList>();
+
+function QuestionsNavigator() {
+  return (
+    <QuestionsStack.Navigator>
+      <QuestionsStack.Screen
+        name="QuestionsScreen"
+        component={Questions}
+        options={{ headerTitle: 'Questions' }}
+      />
+    </QuestionsStack.Navigator>
   );
 }

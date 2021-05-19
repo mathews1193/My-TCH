@@ -27,6 +27,16 @@ export default {
               MedTeamScreen: 'three',
             },
           },
+          CarePlan: {
+            screens: {
+              CarePlanScreen: 'four',
+            },
+          },
+          Questions: {
+            screens: {
+              QuestionsScreen: 'five',
+            },
+          },
         },
       },
       NotFound: '*',

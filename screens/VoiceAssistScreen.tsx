@@ -4,6 +4,8 @@ import { Text, View } from '../components/Themed';
 import VoiceDictation from '../components/VoiceDictation';
 
 
+var ERROR_MSG : string = "Can't recognize your voice";
+
 type State = {
   question: string;
   hasQuestion: boolean;
@@ -16,11 +18,11 @@ class VoiceAssistScreen extends Component<State> {
   }
 
   updateQuestion = (question: string) => {
-    this.setState({question: question, hasQuestion: true});
+    this.setState({question: question, hasQuestion: question != ERROR_MSG});
   }
   sendQuestion = () => {
     console.log("Sending " + this.state.question + " to the medical team");
-    this.setState({hasQuestion: false})
+    this.setState({question: "Your question is sent to the medical team", hasQuestion: false})
   }
 
   render() {

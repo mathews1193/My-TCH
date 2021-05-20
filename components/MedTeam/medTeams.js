@@ -6,19 +6,25 @@ import MedTeams from './medTeam';
 import { View } from 'react-native';
 
 function medTeams () {
-    const [ todo, setTodo ] = useState('');
-    const [ description, setDescription ] = useState('');
-    const [ todos, setTodos ] = useState([]);
-    const db = firebase.database().ref('todos/')
+    const [ careGiverID, setCareGiverID ] = useState('');
+    const [ pic, setPic ] = useState('');
+    const [ name, setName ] = useState('');
+    const [ title, setTitle ] = useState([]);
+    const db = firebase.database().ref('Medical Staff/')
 
     async function addTodo(){
         await db.push({
-            title: todo,
-            description: description,
+            id: careGiverID,
+            name: name,
+            pic:pic,
+            title:title,
             complete: false,
         });
-        setTodo('')
-        setDescription('')
+        setCareGiverID('')
+        setPic('')
+        setName('')
+        setTitle('')
+
     }
         
     useEffect(() => {
@@ -33,7 +39,7 @@ function medTeams () {
             console.log("list", list)
           });
     
-          setTodos(list);
+          setName(list);
     
          
         });
@@ -44,14 +50,14 @@ function medTeams () {
         <View style={{flex:1, width:'100%'}} >
         <FlatList 
             style={{flex:1, width:'100%'}}
-            data={todos}
+            data={medTeams}
             keyExtractor={(item) => item.key} renderItem={({item}) =><MedTeams {...item}  /> }
             
         />
-
-        <TextInput label={'New TODO'} value={todo} onChangeText={setTodo} />
-        <TextInput label={'Description'} value={description} onChangeText={setDescription} />
-        <Button onPress={() => addTodo()}> Add TODO </Button>
+        <TextInput label={'Photo URL'} value={pic} onChangeText={setPic} />
+        <TextInput label={'Name'} value={name} onChangeText={setName} />
+        <TextInput label={'Title'} value={title} onChangeText={setTitle} />
+        <Button onPress={() => addTodo()}> Add Staff </Button>
         
         </View>
     )

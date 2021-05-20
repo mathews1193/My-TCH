@@ -4,18 +4,21 @@ import { List} from 'react-native-paper';
 
 function MedTeam({doc}) {
       async function toggleComplete() {
-        await firebase.database().ref('todos/').child(doc.key).update ({complete: !doc.val().complete})
+        await firebase.database().ref('Medical Staff/').child(doc.key).update ({complete: !doc.val().complete})
         console.log(doc.key)
       }
 
       function deleted(key){
-        firebase.database().ref(`todos/${key}`).remove()
+        firebase.database().ref(`Medical Staff/${key}`).remove()
       }
 
   return (
+    <View>
           <List.Item
+          
+                pic={doc.val().pic}
+                name={doc.val().name}
                 title={doc.val().title}
-                description={doc.val().description}
                 onPress={() => toggleComplete() }
                 style={{
                   flex:1,
@@ -24,7 +27,7 @@ function MedTeam({doc}) {
                   <List.Icon {...props} icon={doc.val().complete ? 'check' : 'cancel'} />
                     )}
           />
-    
+    </View>
   );
 }
 

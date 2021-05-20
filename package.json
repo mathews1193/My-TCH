@@ -25,6 +25,7 @@
     "expo-linking": "~2.2.3",
     "expo-splash-screen": "~0.10.2",
     "expo-status-bar": "~1.0.4",
+    "expo-updates": "~0.5.4",
     "expo-web-browser": "~9.1.0",
     "firebase": "^8.6.1",
     "react": "16.13.1",
@@ -36,9 +37,8 @@
     "react-native-reanimated": "~2.1.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
-    "react-native-web": "~0.13.12",
-    "expo-updates": "~0.5.4",
-    "react-native-unimodules": "~0.13.3"
+    "react-native-unimodules": "~0.13.3",
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -9,10 +9,12 @@ function Questions() {
     const [ todo, setTodo ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ todos, setTodos ] = useState([]);
+    const [ userId, setUserId ] = useState([]);
     const db = firebase.database().ref('Questions/')
 
     async function addTodo(){
         await db.push({
+            userId:userId,
             title: todo,
             description: description,
             complete: false,

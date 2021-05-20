@@ -6,7 +6,7 @@ import MedTeams from './medTeam';
 import { View } from 'react-native';
 
 function medTeams () {
-    const [ careGiverID, setCareGiverID ] = useState('');
+    const [ staffID, setStaffID ] = useState('');
     const [ pic, setPic ] = useState('');
     const [ name, setName ] = useState('');
     const [ title, setTitle ] = useState([]);
@@ -14,13 +14,13 @@ function medTeams () {
 
     async function addTodo(){
         await db.push({
-            id: careGiverID,
-            name: name,
-            pic:pic,
-            title:title,
+            staffID: Math.ceil(Math.random()),
+            name,
+            pic,
+            title,
             complete: false,
         });
-        setCareGiverID('')
+        setStaffID('')
         setPic('')
         setName('')
         setTitle('')
@@ -62,6 +62,5 @@ function medTeams () {
         </View>
     )
 }
-  
 
 export default medTeams;

@@ -12,12 +12,10 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
-import { BottomTabParamList, HomeParamList, VoiceAssistParamList, MedTeamParamList, CarePlanParamList, QuestionsParamList } from '../types';
-import CarePlan from '../screens/CarePlanScreen';
+import { BottomTabParamList, HomeParamList, VoiceAssistParamList, MedTeamParamList } from '../types';
 import VoiceAssist from '../screens/VoiceAssistScreen';
 import MedTeam from '../screens/MedTeamScreen';
 import Home from '../screens/HomeScreen';
-import Questions from '../screens/QuestionsScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -100,33 +98,5 @@ function MedTeamNavigator() {
         options={{ headerTitle: 'Medical Team' }}
       />
     </MedTeamStack.Navigator>
-  );
-}
-
-const CarePlanStack = createStackNavigator<CarePlanParamList>();
-
-function CarePlanNavigator() {
-  return (
-    <CarePlanStack.Navigator>
-      <CarePlanStack.Screen
-        name="CarePlanScreen"
-        component={CarePlan}
-        options={{ headerTitle: 'Care Plan' }}
-      />
-    </CarePlanStack.Navigator>
-  );
-}
-
-const QuestionsStack = createStackNavigator<QuestionsParamList>();
-
-function QuestionsNavigator() {
-  return (
-    <QuestionsStack.Navigator>
-      <QuestionsStack.Screen
-        name="QuestionsScreen"
-        component={Questions}
-        options={{ headerTitle: 'Questions' }}
-      />
-    </QuestionsStack.Navigator>
   );
 }

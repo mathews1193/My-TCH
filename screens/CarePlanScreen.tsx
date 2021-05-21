@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Image } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import CarePlans from '../components/CarePlan/carePlans';
+import CarePlans from '../components/CarePlan/CarePlans';
 
 import { Text, View} from '../components/Themed';
 

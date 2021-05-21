@@ -2,7 +2,7 @@ import React ,{ useState, useEffect }from 'react';
 import { Appbar, TextInput, Button } from 'react-native-paper';
 import firebase from '../Firebase';
 import { FlatList, } from 'react-native-gesture-handler';
-import CarePlan from './carePlan';
+import CarePlan from './CarePlan';
 import { View } from 'react-native';
 
 function CarePlans () {

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import VoiceDictation from '../components/VoiceDictation';
-import { Permissions } from "expo";
-
+import * as Permissions from "expo-permissions";
 
 var ERROR_MSG : string = "Can't recognize your voice";
 
@@ -17,17 +16,23 @@ class VoiceAssistScreen extends Component<State> {
     question: "Waiting for question...",
     hasQuestion: false
   }
+
+  
   async componentDidMount() {
+    //Ask speaker permission for Android
     const { status, expires, permissions } = await Permissions.askAsync(
       Permissions.AUDIO_RECORDING
     );
     if (status !== "granted") {
       //Permissions not granted. Don't show the start recording button because it will cause problems if it's pressed.
-      console.log("User does not grant Permission.");
+      //this.setState({showRecordButton: false});
+      console.log("speaker is not granted");
     } else {
-      console.log("User does grant Permission.");
+      console.log("speaker is granted")
+      //this.setState({showRecordButton: true});
     }
   }
+
   updateQuestion = (question: string) => {
     this.setState({question: question, hasQuestion: question != ERROR_MSG});
   }

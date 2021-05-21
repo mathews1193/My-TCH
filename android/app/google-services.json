@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "367059057929",
+    "firebase_url": "https://tech-doc-3fd16-default-rtdb.firebaseio.com",
+    "project_id": "tech-doc-3fd16",
+    "storage_bucket": "tech-doc-3fd16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367059057929:android:b6b5568fe6c17ca1a827d8",
+        "android_client_info": {
+          "package_name": "com.tomriddle1403.techdoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367059057929-efnopj40t2mc5o9t0rmtsntubm3tb5vt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcLARe9RSLeaSy5dNr95pnOUQIx_3xqFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367059057929-efnopj40t2mc5o9t0rmtsntubm3tb5vt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "367059057929-ht0pbitcdi58ruai9c4qfrg1uvqgjd4u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tomriddle1403.techdoc"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

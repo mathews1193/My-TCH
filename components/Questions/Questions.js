@@ -6,20 +6,20 @@ import Question from './Question';
 import { View } from 'react-native';
 
 function Questions() {
-    const [ todo, setTodo ] = useState('');
+    const [ question, setQuestion ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ todos, setTodos ] = useState([]);
     const [ userId, setUserId ] = useState([]);
     const db = firebase.database().ref('Questions/')
 
-    async function addTodo(){
+    async function addQuestion(){
         await db.push({
-            userId:userId,
-            title: todo,
-            description: description,
+            userId,
+            question,
+            description,
             complete: false,
         });
-        setTodo('')
+        setQuestion('')
         setDescription('')
     }
         
@@ -51,9 +51,9 @@ function Questions() {
             
         />
 
-        <TextInput label={'Question'} value={todo} onChangeText={setTodo} />
+        <TextInput label={'Question'} value={question} onChangeText={setQuestion} />
         <TextInput label={'What Medical Staff member?'} value={description} onChangeText={setDescription} />
-        <Button onPress={() => addTodo()}> Add Question </Button>
+        <Button onPress={() => addQuestion()}> Add Question </Button>
         
         </View>
     )

@@ -1,22 +1,34 @@
 import React from 'react';
 import firebase from '../Firebase'
+import { Alert } from "react-native";
 import { List} from 'react-native-paper';
 
 function CarePlan({doc}) {
       async function toggleComplete() {
-        await firebase.database().ref('todos/').child(doc.key).update ({complete: !doc.val().complete})
+        await firebase.database().ref('Care Plan/').child(doc.key).update ({complete: !doc.val().complete})
         console.log(doc.key)
       }
 
-      function deleted(key){
-        firebase.database().ref(`todos/${key}`).remove()
+      function deleted(){
+        Alert.alert(
+          "Deleting Care Plan",
+          "Are you Sure you want to delete this?",
+          [
+            {
+              text: "Yes",
+              onPress: () => firebase.database().ref('Care Plan/').child(doc.key).remove(),
+              style: "cancel"
+            },
+            { text: "Cancel", onPress: () => console.log("Cancel Pressed") }
+          ]
+        );
       }
-
-  return (
+      return(
           <List.Item
                 title={doc.val().title}
                 description={doc.val().description}
                 onPress={() => toggleComplete() }
+                onPress={() => deleted() }
                 style={{
                   flex:1,
                 }} 

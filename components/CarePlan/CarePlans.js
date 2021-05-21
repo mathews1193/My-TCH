@@ -6,18 +6,20 @@ import CarePlan from './carePlan';
 import { View } from 'react-native';
 
 function CarePlans () {
-    const [ todo, setTodo ] = useState('');
+    const [ patientid, setPatientid ] = useState('');
+    const [ day, setDay ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ todos, setTodos ] = useState([]);
     const db = firebase.database().ref('todos/')
 
-    async function addTodo(){
+    async function addPlan(){
         await db.push({
-            title: todo,
-            description: description,
+            patientid,
+            day,
+            description,
             complete: false,
         });
-        setTodo('')
+        setDay('')
         setDescription('')
     }
         
@@ -33,7 +35,7 @@ function CarePlans () {
             console.log("list", list)
           });
     
-          setTodos(list);
+          setPatientid(list);
     
          
         });
@@ -44,18 +46,17 @@ function CarePlans () {
         <View style={{flex:1, width:'100%'}} >
         <FlatList 
             style={{flex:1, width:'100%'}}
-            data={todos}
+            data={patientid}
             keyExtractor={(item) => item.key} renderItem={({item}) =><CarePlan {...item}  /> }
             
         />
 
-        <TextInput label={'New TODO'} value={todo} onChangeText={setTodo} />
-        <TextInput label={'Description'} value={description} onChangeText={setDescription} />
-        <Button onPress={() => addTodo()}> Add TODO </Button>
+        <TextInput label={'Description of plan'} value={description} onChangeText={setDescription} />
+        <TextInput label={'What day is it?'} value={day} onChangeText={setDay} />
+        <Button onPress={() => addPlan()}> Add New Care Plan </Button>
         
         </View>
     )
 }
-  
 
 export default CarePlans;

@@ -5,7 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { Text, View} from '../components/Themed';
 import messaging from '@react-native-firebase/messaging';
-import firebase from '../components/Firebase';
+import app from '@react-native-firebase/app';
+
+//import firebase from '../components/Firebase';
 
 async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
@@ -15,6 +17,8 @@ async function requestUserPermission() {
 
     if (enabled) {
       console.log('Authorization status:', authStatus);
+      const token = await messaging().getToken();
+      console.log('my token: ', token);
     }
 }
 

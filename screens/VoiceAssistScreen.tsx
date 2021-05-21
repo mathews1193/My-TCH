@@ -36,8 +36,24 @@ class VoiceAssistScreen extends Component<State> {
   updateQuestion = (question: string) => {
     this.setState({question: question, hasQuestion: question != ERROR_MSG});
   }
-  sendQuestion = () => {
+  sendQuestion = async () => {
+    //Setup POST 
+    let userId = 1;
+    const SERVER_HOST = "http://localhost:3003";
+    const API = `${SERVER_HOST}/patient/${userId}/question`;
     console.log("Sending " + this.state.question + " to the medical team");
+    const response = await fetch(API, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        question: this.state.question,
+      }),
+    });
+    const responseJson = await response.json();
+    console.log("got response: ", responseJson);
     this.setState({question: "Your question is sent to the medical team", hasQuestion: false})
   }
 

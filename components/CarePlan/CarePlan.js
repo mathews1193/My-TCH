@@ -25,7 +25,7 @@ function CarePlan({doc}) {
       }
       return(
           <List.Item
-                title={doc.val().title}
+                title={doc.val().day}
                 description={doc.val().description}
                 onPress={() => toggleComplete() }
                 onPress={() => deleted() }

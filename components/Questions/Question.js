@@ -26,7 +26,7 @@ function Question({doc}) {
 
   return ( 
           <List.Item
-                title={doc.val().title}
+                title={doc.val().question}
                 description={doc.val().description}
                 onPress={() => toggleComplete() }
                 onPress={() => deleted() }

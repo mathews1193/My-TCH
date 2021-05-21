@@ -16,9 +16,9 @@ function medTeams () {
     async function addStaff(){
         await db.push({
             staffID: Math.ceil(Math.random()),
-            name: string,
-            pic: string,
-            title: string,
+            name,
+            pic,
+            title,
             complete: false,
         });
 
@@ -40,7 +40,7 @@ function medTeams () {
             console.log("list", list)
           });
     
-          setStaffID(list);
+          setStaffIDs(list);
     
          
         });
@@ -51,7 +51,7 @@ function medTeams () {
         <View style={{flex:1, width:'100%'}} >
         <FlatList 
             style={{flex:1, width:'100%'}}
-            data={staffID}
+            data={staffIDs}
             keyExtractor={(item) => item.key} renderItem={({item}) =><MedTeams {...item}  /> }
             
         />

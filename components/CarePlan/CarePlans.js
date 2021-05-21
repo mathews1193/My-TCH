@@ -10,7 +10,7 @@ function CarePlans () {
     const [ day, setDay ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ todos, setTodos ] = useState([]);
-    const db = firebase.database().ref('todos/')
+    const db = firebase.database().ref('Care Plan/')
 
     async function addPlan(){
         await db.push({
@@ -21,7 +21,6 @@ function CarePlans () {
         });
         setDay('')
         setDescription('')
-        
     }
         
     useEffect(() => {

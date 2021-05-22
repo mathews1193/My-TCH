@@ -16,6 +16,7 @@ import { BottomTabParamList, HomeParamList, VoiceAssistParamList, MedTeamParamLi
 import VoiceAssist from '../screens/VoiceAssistScreen';
 import MedTeam from '../screens/MedTeamScreen';
 import Home from '../screens/HomeScreen';
+import DoctorHomeScreen from '../screens/DoctorHomeScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -43,6 +44,13 @@ export default function BottomTabNavigator() {
        <BottomTab.Screen
         name="MedTeam"
         component={MedTeamNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <AntDesign name="team" size={24} color= {color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Doctor"
+        component={DoctorNavigator}
         options={{
           tabBarIcon: ({ color }) => <AntDesign name="team" size={24} color= {color} />,
         }}
@@ -98,5 +106,19 @@ function MedTeamNavigator() {
         options={{ headerTitle: 'Medical Team' }}
       />
     </MedTeamStack.Navigator>
+  );
+}
+
+const DoctorStack = createStackNavigator();
+
+function DoctorNavigator() {
+  return (
+    <DoctorStack.Navigator>
+      <DoctorStack.Screen
+        name="DoctorHomeScreen"
+        component={DoctorHomeScreen}
+        options={{ headerTitle: 'Doctor' }}
+      />
+    </DoctorStack.Navigator>
   );
 }

@@ -21,7 +21,7 @@ export default function App() {
       const messageJson = remoteMessage.notification;
       console.log(messageJson);
       Alert.alert('A patien asks a question', JSON.stringify(messageJson));
-      RootNavigation.navigate('MedTeam', {});
+      RootNavigation.navigate('Doctor', {});
     });
 
     messaging().onNotificationOpenedApp(remoteMessage => {

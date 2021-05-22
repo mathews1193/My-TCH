@@ -8,20 +8,28 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import messaging from '@react-native-firebase/messaging';
 
+import * as RootNavigation from './RootNavigation';
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
   useEffect( () => {
+    //handle notification
     const unsubscribe = messaging().onMessage(async remoteMessage => {
+      //TODO: go to patient detail based on ID
       const messageJson = remoteMessage.notification;
-      Alert.alert('A new FCM message arrived!', JSON.stringify(messageJson));
+      console.log(messageJson);
+      Alert.alert('A patien asks a question', JSON.stringify(messageJson));
+      RootNavigation.navigate('MedTeam', {});
     });
 
     messaging().onNotificationOpenedApp(remoteMessage => {
+      //TODO: go to doctor detail based on ID
       console.log("Notification caused app to open from background state: ", remoteMessage.notification);
     })
     messaging().getInitialNotification().then(remoteMessage => {
+      //TODO: go to doctor detail based on ID
       if (remoteMessage) {
         console.log('Notification caused app to open from quit state: ', remoteMessage.notification);
       }
@@ -32,7 +40,7 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
+        <Navigation colorScheme={colorScheme}/>
         <StatusBar />
       </SafeAreaProvider>
     );

@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
+import {Alert} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
@@ -12,6 +13,11 @@ export default function App() {
   const colorScheme = useColorScheme();
 
   useEffect( () => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      const messageJson = remoteMessage.notification;
+      Alert.alert('A new FCM message arrived!', JSON.stringify(messageJson));
+    });
+
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log("Notification caused app to open from background state: ", remoteMessage.notification);
     })

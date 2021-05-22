@@ -3,67 +3,97 @@ import {SafeAreaView, TextInput,
    Button, Image, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 
 import { Text, View} from '../components/Themed';
-
-
+import * as RootNavigation from '../RootNavigation';
+import Navigation from '../navigation';
+import useColorScheme from '../hooks/useColorScheme';
+import DoctorHomeScreen from '../screens/DoctorHomeScreen';
 
 export default function LoginScreen() {
   const [loginRole, setLoginRole] = useState("");
   const [email, onChangeEmail] = useState("");
   const [password, onChangePassword] = useState("");
+  const [authenticated, setAuthenticated] = useState(false);
 
   const ROLE = {patient: "patient", doctor: "doctor"};
+  const colorScheme = useColorScheme();
 
-  if (loginRole === "") {
-    return  (
-      <View style={styles.container}>
-                <Image
-          style={styles.logo}
-          source={{
-            uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-          }}
-        />
-        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-        <Text>Welcome to TechDoc</Text>
+  const loginHandler = () => {
+    if (loginRole == ROLE.patient) {
+      console.log("welcome patient");
+      console.log("navigate to patient screen");
+      setAuthenticated(true);
+      //RootNavigation.navigate("Home", {});
+    } else if (loginRole == ROLE.doctor) {
+      console.log("welcome doctor");
+      console.log("navigate to doctor screen");
+      RootNavigation.navigate("Doctor", {});
+      setAuthenticated(true);
+    }
+  }
+  if (! authenticated) {
+    if (loginRole === "") {
+      return  (
+        <View style={styles.containerlogin}>
+          <Image
+            style={styles.logo}
+            source={{
+              uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
+            }}
+          />
+          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+          <Text style={styles.title}>Welcome to TechDoc</Text>
 
-        <TouchableOpacity onPress={() => setLoginRole(ROLE.patient)} style={[]}>
-          <Text>Login as Patient</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setLoginRole(ROLE.doctor)} style={[]}>
-          <Text>Login as Doctor</Text>
-        </TouchableOpacity>
-      </View>
-    );
+          <TouchableOpacity onPress={() => setLoginRole(ROLE.patient)} style={[styles.roleButton]}>
+            <Text style={[styles.roleText]}>Patient</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setLoginRole(ROLE.doctor)} style={[styles.roleButton]}>
+            <Text style={[styles.roleText]}>Doctor</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.containerlogin}>
+          <Image
+            style={styles.logo}
+            source={{
+              uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
+            }}
+          />
+          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+          <Text style={styles.title}>Login</Text>
+          
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeEmail}
+            value={email}
+            placeholder="email"
+            textContentType="emailAddress"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangePassword}
+            value={password}
+            placeholder="password"
+            textContentType="password"
+            secureTextEntry= {true}
+          />
+          <TouchableOpacity onPress={() => loginHandler()} style={[styles.loginButton]}>
+            <Text style={[styles.loginText]}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setLoginRole("")} style={[styles.loginButton]}>
+            <Text style={[styles.loginText]}>Back</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
   } else {
-    return (
-      <View style={styles.containerlogin}>
-        <Image
-          style={styles.logo}
-          source={{
-            uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-          }}
-        />
-        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-        <Text style={styles.title}>Login</Text>
-        
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeEmail}
-          value={email}
-          placeholder="email"
-          textContentType="emailAddress"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangePassword}
-          value={password}
-          placeholder="password"
-          textContentType="password"
-        />
-        <TouchableOpacity onPress={() => setLoginRole(ROLE.patient)} style={[styles.loginButton]}>
-          <Text style={[styles.loginText]}>Login</Text>
-        </TouchableOpacity>
-      </View>
-    )
+    if (loginRole === ROLE.patient) {
+      
+      return (<Navigation colorScheme={colorScheme}/>)
+    } else if (loginRole === ROLE.doctor) {
+      return (<DoctorHomeScreen navigation={{}} />) 
+    }
   }
 }
 
@@ -75,6 +105,25 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
     backgroundColor: "white",
   },
+  containerlogin: {
+    flex: 1,
+    flexDirection: "column",
+
+  },
+  roleButton: {
+    alignItems: 'center',
+    height: 40,
+    marginVertical: 20,
+    marginHorizontal: 40, 
+    backgroundColor: "blue",
+    borderRadius: 10, 
+  },
+  roleText: {
+    paddingTop: 5,
+    fontSize: 25,
+    color: "white",
+    textAlign : 'center',  
+  }, 
   loginButton: {
     alignItems: 'center',
     height: 40,
@@ -95,11 +144,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignSelf: 'center',
   },
-  containerlogin: {
-    flex: 1,
-    flexDirection: "column",
-
-  },
+ 
   input: {
     alignItems: 'flex-start',
     height: 40,

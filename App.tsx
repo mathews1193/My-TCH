@@ -8,6 +8,8 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import messaging from '@react-native-firebase/messaging';
 
+import LoginScreen from './screens/LoginScreen';
+
 import * as RootNavigation from './RootNavigation';
 
 export default function App() {
@@ -40,8 +42,9 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme}/>
-        <StatusBar />
+        <LoginScreen />
+        {/* <Navigation colorScheme={colorScheme}/>
+         <StatusBar /> */}
       </SafeAreaProvider>
     );
   }

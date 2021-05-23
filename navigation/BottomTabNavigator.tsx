@@ -13,7 +13,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
 import { BottomTabParamList, HomeParamList, VoiceAssistParamList, MedTeamParamList } from '../types';
-import VoiceAssist from '../screens/VoiceAssistScreen';
+import VoiceAssistScreen from '../screens/VoiceAssistScreen';
 import MedTeam from '../screens/MedTeamScreen';
 import Home from '../screens/HomeScreen';
 import DoctorHomeScreen from '../screens/DoctorHomeScreen';
@@ -89,7 +89,7 @@ function VoiceAssistNavigator() {
     <VoiceAssistStack.Navigator>
       <VoiceAssistStack.Screen
         name="VoiceAssistScreen"
-        component={VoiceAssist}
+        component={VoiceAssistScreen}
         options={{ headerTitle: 'Voice Assistant' }}
       />
     </VoiceAssistStack.Navigator>

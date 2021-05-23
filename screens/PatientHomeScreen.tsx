@@ -161,11 +161,6 @@ export default function PatientHomeScreen({patient}) {
           
         />
       </View>
-      {/* <View style={styles.providers}>
-        <Text style={styles.providertitle}>Do you have questions for your team</Text>
-        <Text>Don't hesitate to ask us questions. You can write them out or send a voice note.</Text>
-        
-      </View> */}
       <VoiceAssistScreen style={styles.providers}/>
       <View style={styles.providers}>
       <Text style={styles.providertitle}>Your Questions</Text>

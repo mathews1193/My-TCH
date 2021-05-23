@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Text} from '../components/Themed';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faMicrophone, faMicrophoneSlash} from '@fortawesome/free-solid-svg-icons';
 
 import Voice, {
     SpeechRecognizedEvent,
@@ -8,6 +10,7 @@ import Voice, {
     SpeechErrorEvent,
 } from '@react-native-voice/voice';
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
+import { FontAwesome } from '@expo/vector-icons';
 
 type Props = {
     updateQuestion: (question: string) => void,
@@ -161,12 +164,15 @@ class VoiceDictation extends Component<Props, State> {
     }
 
     renderButton() {
-        var title: string = !this.state.started ? "Record" : "Stop";
+        var title: string = !this.state.started ? "Voice Assist" : "Stop";
         var handler = !this.state.started ? this._startRecognizing : this._stopRecognizing;
+        var icon = !this.state.started ? faMicrophone : faMicrophoneSlash;
+        var buttonStyle = !this.state.started ? [styles.button] : [styles.button, styles.stopButton];
         return (
             <TouchableOpacity
-                style={styles.button}
+                style={buttonStyle}
                 onPress = {handler}>
+                <FontAwesomeIcon icon={icon} />
                 <Text style={styles.text}>{title}</Text>
             </TouchableOpacity>
         )
@@ -185,14 +191,18 @@ export default VoiceDictation;
 
 const styles = StyleSheet.create({
     button: {
+        flexDirection: 'row',
         textAlign: 'center',
         alignSelf: 'center',
         marginVertical: 10,
         marginHorizontal: 20,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: "rgb(210,56,58)",
+        backgroundColor: "rgb(0,122,255)",
         color: "white",
+    },
+    stopButton: {
+        backgroundColor: "rgb(210,56,58)",
     },
     text: {
         color: "white",

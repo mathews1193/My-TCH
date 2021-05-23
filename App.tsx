@@ -25,7 +25,12 @@ export default function App() {
       //TODO: go to patient detail based on ID
       const messageJson = remoteMessage.notification;
       console.log(messageJson);
-      Alert.alert('A patien asks a question', JSON.stringify(messageJson));
+      
+      const title = messageJson?.title
+      const question = messageJson?.body
+      Alert.alert(title, question);
+      
+
       RootNavigation.navigate('Doctor', {});
     });
 

@@ -17,7 +17,7 @@ export default {
               HomeScreen: 'one',
             },
           },
-          VoiceAssist: {
+          VoiceAssistScreen: {
             screens: {
               VoiceAssistScreen: 'two',
             },

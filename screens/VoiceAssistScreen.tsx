@@ -5,6 +5,7 @@ import VoiceDictation from '../components/VoiceDictation';
 import * as Permissions from "expo-permissions";
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
+
 var ERROR_MSG : string = "Can't recognize your voice";
 
 type State = {
@@ -79,11 +80,16 @@ class VoiceAssistScreen extends Component<State> {
   }
 
   render() {
+    var askStyle = this.state.askQuestionPressed ? [styles.askButton, styles.disabledButton] : [styles.askButton];
+
     return (
       <View style={this.props.style}> 
         <Text style={styles.title}>Do you have questions for your team?</Text> 
         <Text>Don't hesitate to ask us questions. You can write them out or send a voice note.</Text>
-        <TouchableOpacity style={styles.askButton} onPress={() => this.setState({askQuestionPressed: true})}>
+        <TouchableOpacity 
+          style={askStyle} 
+          onPress={() => this.setState({askQuestionPressed: true})} 
+          disabled={this.state.askQuestionPressed}>
           <Text style={styles.askText}>Ask a question</Text>
         </TouchableOpacity>
         {this.state.askQuestionPressed &&
@@ -104,7 +110,7 @@ class VoiceAssistScreen extends Component<State> {
         }
         {this.state.question !== "" &&
           <View>
-            <TouchableOpacity style={styles.cancelButton} onPress={this.sendQuestion}>
+            <TouchableOpacity style={styles.sendButton} onPress={this.sendQuestion}>
               <Text style={styles.askText}>Send Question</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.askButton} onPress={this.cancelQuestion}>
@@ -132,7 +138,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(210,56,58)",
     color: "white",
   },
-  cancelButton: {
+  disabledButton: {
+    backgroundColor: "rgba(210,56,58, 0.5)",
+    
+  },
+  sendButton: {
     flex: 1,
     marginVertical: 10,
     marginHorizontal: 20,

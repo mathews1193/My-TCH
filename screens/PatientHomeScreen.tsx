@@ -20,6 +20,7 @@ Answered questions: list<answered question>
 */
 import React, {useState} from 'react';
 import { SafeAreaView, FlatList, StatusBar, StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
+import VoiceAssistScreen from './VoiceAssistScreen';
 
 export default function PatientHomeScreen({patient}) {
   const provider_data = [
@@ -129,6 +130,12 @@ export default function PatientHomeScreen({patient}) {
           
         />
       </View>
+      {/* <View style={styles.providers}>
+        <Text style={styles.providertitle}>Do you have questions for your team</Text>
+        <Text>Don't hesitate to ask us questions. You can write them out or send a voice note.</Text>
+        
+      </View> */}
+      <VoiceAssistScreen style={styles.providers}/>
       </ScrollView>
      
     </SafeAreaView>

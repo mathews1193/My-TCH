@@ -18,9 +18,10 @@ Your questions: List<question>
 Answered questions: list<answered question>
 --EndView--
 */
-import React, {useState} from 'react';
+import React, {useState ,useEffect} from 'react';
 import { SafeAreaView, FlatList, StatusBar, StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
 import VoiceAssistScreen from './VoiceAssistScreen';
+import {getQuestionsUri, sendGetRequest} from '../server_api';
 
 export default function PatientHomeScreen({patient}) {
   const provider_data = [
@@ -101,22 +102,13 @@ export default function PatientHomeScreen({patient}) {
     )
   };
 
-  const questions = [
-    {
-      id: 1,
-      text: "What is Covid-19?"
-    },
-    {
-      id: 2,
-      text: "What can I do to prevent Covid-19?"
-    },
-  ];
+  const [questions, addQuestions] = useState([]);
 
   const renderQuestion = ({item}) => {
     //TODO: style image with name
     return (
       <View style={styles.careplan}>
-        <Text>{item.text}</Text>
+        <Text><Text style={{fontWeight: 'bold'}}>Q:</Text> {item.content}</Text>
       </View>
     )
   };
@@ -131,7 +123,24 @@ export default function PatientHomeScreen({patient}) {
       text: "Should I not wearing the mask after vaccination?"
     },
   ];
+  const updateQuestion = (question: any) => {
+    console.log("called updateQuestion");
+    addQuestions([...questions, question]);
+  }
+  //get questions from database
+  useEffect( () => {
+    async function fetchQuestions() {
+      const uri = getQuestionsUri(patient.id);
 
+      const responseJson = await  sendGetRequest(uri);
+      console.log("questions ", responseJson);
+      addQuestions(responseJson);
+    }
+    if (questions.length === 0)
+      fetchQuestions();
+  }, [])
+
+  
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -161,7 +170,7 @@ export default function PatientHomeScreen({patient}) {
           
         />
       </View>
-      <VoiceAssistScreen style={styles.providers}/>
+      <VoiceAssistScreen style={styles.providers} userId={patient.id} updateQuestions={updateQuestion}/>
       <View style={styles.providers}>
       <Text style={styles.providertitle}>Your Questions</Text>
         <FlatList

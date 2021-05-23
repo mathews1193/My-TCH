@@ -5,21 +5,28 @@ import VoiceDictation from '../components/VoiceDictation';
 import * as Permissions from "expo-permissions";
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
+import {getSendQuestionUri, sendPostRequest} from '../server_api';
 
 var ERROR_MSG : string = "Can't recognize your voice";
 
-type State = {
-  question: string;
-  hasQuestion: boolean;
-  style: any;
+type Props = {
+  userId: string,
+  style: any,
+  updateQuestions: any,
 }
 
-class VoiceAssistScreen extends Component<State> {
-  state = {
-    nonRecordText: "",
-    question: "",
-    askQuestionPressed: false,
-  }
+type State = {
+  nonRecordText: string,
+  question: string,
+  askQuestionPressed: boolean,
+}
+
+class VoiceAssistScreen extends Component<Props, State> {
+    state = {
+      nonRecordText: "",
+      question: "",
+      askQuestionPressed: false,
+    }
 
   
   async componentDidMount() {
@@ -56,22 +63,12 @@ class VoiceAssistScreen extends Component<State> {
   }
 
   sendQuestion = async () => {
-    let userId = 1;
-    const SERVER_HOST = "http://localhost:3003";
-    const API = `${SERVER_HOST}/patient/${userId}/question`;
+    const uri = getSendQuestionUri(this.props.userId);
     console.log("Sending " + this.state.question + " to the medical team");
-    const response = await fetch(API, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        question: this.state.question,
-      }),
-    });
-    const responseJson = await response.json();
+    const responseJson = await sendPostRequest(uri, {question: this.state.question});
     console.log("got response: ", responseJson);
+    //state update
+    this.props.updateQuestions(responseJson);
     this.setState({question: "", askQuestionPressed: false, nonRecordText: "",})
   }
 

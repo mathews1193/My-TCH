@@ -49,7 +49,7 @@ export default function App() {
     return null;
   } else {
     //test data
-    const patient = {id: 123, room: "B231", name: "Luther"} 
+    const patient = {id: 878000, room: "B231", name: "Luther"} 
     return (
       <SafeAreaProvider>
         <PatientHomeScreen patient = {patient}/>

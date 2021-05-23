@@ -106,11 +106,24 @@ export default function PatientHomeScreen({patient}) {
 
   const renderQuestion = ({item}) => {
     //TODO: style image with name
+    if (item.answerId !== '')
+      return ;
     return (
       <View style={styles.careplan}>
         <Text><Text style={{fontWeight: 'bold'}}>Q:</Text> {item.content}</Text>
       </View>
-    )
+    );
+  };
+
+  const renderAnsweredQuestion = ({item}) => {
+    //TODO: style image with name
+    if (item.answerId === '')
+      return ;
+    return (
+      <View style={styles.careplan}>
+        <Text><Text style={{fontWeight: 'bold'}}>Q:</Text> {item.content}</Text>
+      </View>
+    );
   };
 
   const answered_questions = [
@@ -183,8 +196,8 @@ export default function PatientHomeScreen({patient}) {
       <View style={styles.providers}>
       <Text style={styles.providertitle}>Answered Questions</Text>
         <FlatList
-          data={answered_questions}
-          renderItem={renderQuestion}
+          data={questions}
+          renderItem={renderAnsweredQuestion}
           keyExtractor={(item) => item.id.toString()}
           
         />

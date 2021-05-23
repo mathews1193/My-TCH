@@ -10,7 +10,8 @@ import Voice, {
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
 type Props = {
-    updateQuestion: (question: string) => void
+    updateQuestion: (question: string) => void,
+    endQuestion: () => void,
 }
 
 type State = {
@@ -60,7 +61,6 @@ class VoiceDictation extends Component<Props, State> {
     }
 
     componentDidMount() {
-        console.log(this);
         console.log("Voice dictation mounted");
         this._isMounted = true;
         console.log("_isMounted: ", this._isMounted);
@@ -81,13 +81,10 @@ class VoiceDictation extends Component<Props, State> {
 
     onSpeechEnd = (e: any) => {
         console.log('onSpeechEnd: ', e);
-        // var question : string = this.state.results.reduce((prev, current) => {
-        //     return prev + " " + current;
-        // }, "");
-        // this.props.updateQuestion(question);
-        // if (this._isMounted) {
-        //     this.setState(END_STATE);
-        // }
+        if (this._isMounted) {
+            this.props.endQuestion();
+            //this.setState(END_STATE);
+        }
     }
 
     onSpeechError = (e: any) => {
@@ -103,7 +100,6 @@ class VoiceDictation extends Component<Props, State> {
 
     onSpeechResults = (e: SpeechResultsEvent) => {
         console.log('onSpeechResults: ', e);
-        console.log(this.state);
         if (this._isMounted && e.value !== undefined) {
             console.log("speechResults inside");
             var question : string = e.value.reduce((prev, current) => {

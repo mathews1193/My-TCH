@@ -39,11 +39,17 @@ class VoiceAssistScreen extends Component<State> {
   componentWillUnmount () {
     console.log("Voice assistscreen will unmount");
   }
+  //handler for child component
   updateQuestion = (recordedText: string) => {
     console.log("called updatequestion");
     var result: string = this.state.nonRecordText + " " + recordedText;
     this.setState({question: result});
   }
+  endQuestion = () => {
+    console.log("called end question");
+    this.setState({nonRecordText: this.state.question});
+  }
+
   handleTextChange = (text: string) => {
     this.setState({question: text, nonRecordText: text});
   }
@@ -68,6 +74,10 @@ class VoiceAssistScreen extends Component<State> {
     this.setState({question: "", askQuestionPressed: false, nonRecordText: "",})
   }
 
+  cancelQuestion = () => {
+    this.setState({question: "", askQuestionPressed: false, nonRecordText: "",})
+  }
+
   render() {
     return (
       <View style={this.props.style}> 
@@ -86,16 +96,21 @@ class VoiceAssistScreen extends Component<State> {
               placeholder="Type or record your question"
               value={this.state.question}
             />
-            <VoiceDictation updateQuestion={this.updateQuestion}/>
+            <VoiceDictation updateQuestion={this.updateQuestion} endQuestion={this.endQuestion}/>
           </Fragment>
         }
         {!this.state.askQuestionPressed &&
             null
         }
         {this.state.question !== "" &&
-          <TouchableOpacity style={styles.askButton} onPress={this.sendQuestion}>
-            <Text style={styles.askText}>Send Question</Text>
+          <View>
+            <TouchableOpacity style={styles.cancelButton} onPress={this.sendQuestion}>
+              <Text style={styles.askText}>Send Question</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.askButton} onPress={this.cancelQuestion}>
+            <Text style={styles.askText}>Cancel</Text>
           </TouchableOpacity>
+          </View>
         }
       </View>
     );
@@ -115,6 +130,15 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: "rgb(210,56,58)",
+    color: "white",
+  },
+  cancelButton: {
+    flex: 1,
+    marginVertical: 10,
+    marginHorizontal: 20,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "rgb(0,122,255)",
     color: "white",
   },
   askText: {

@@ -47,7 +47,7 @@ export default function LoginScreen() {
             <Text style={[styles.roleText]}>Patient</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setLoginRole(ROLE.doctor)} style={[styles.roleButton]}>
-            <Text style={[styles.roleText]}>Doctor</Text>
+            <Text style={[styles.roleText]}>Medical Provider</Text>
           </TouchableOpacity>
         </View>
       );

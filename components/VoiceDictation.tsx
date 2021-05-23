@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Button, StyleSheet } from 'react-native';
+import { Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Text} from '../components/Themed';
 
 import Voice, {
@@ -7,6 +7,7 @@ import Voice, {
     SpeechResultsEvent,
     SpeechErrorEvent,
 } from '@react-native-voice/voice';
+import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
 type Props = {
     updateQuestion: (question: string) => void
@@ -18,8 +19,6 @@ type State = {
     error: string;
     started: boolean;
     end: boolean;
-    partialResults: string[];
-    results: string[];
 }
 
 const INIT_STATE: State = {
@@ -28,8 +27,6 @@ const INIT_STATE: State = {
     error: '',
     end: false,
     started: true,
-    results: [],
-    partialResults: [],
 };
 
 const END_STATE: State = {
@@ -38,8 +35,6 @@ const END_STATE: State = {
     error: '',
     end: true,
     started: false,
-    results: [],
-    partialResults: [],
 };
 
 class VoiceDictation extends Component<Props, State> {
@@ -50,28 +45,34 @@ class VoiceDictation extends Component<Props, State> {
         error: '',
         end: false,
         started: false,
-        results: [],
-        partialResults: [],
     }
 
     constructor(props: Props) {
+        console.log("voice dictation constructor");
         super(props);
         Voice.onSpeechStart = this.onSpeechStart;
         Voice.onSpeechRecognized = this.onSpeechRecognized;
         Voice.onSpeechEnd = this.onSpeechEnd;
         Voice.onSpeechError = this.onSpeechError;
         Voice.onSpeechResults = this.onSpeechResults;
-        Voice.onSpeechPartialResults = this.onSpeechPartialResults;
+        //Voice.onSpeechPartialResults = this.onSpeechPartialResults;
         //Voice.onSpeechVolumeChanged = this.onSpeechVolumeChanged;
     }
 
     componentDidMount() {
+        console.log(this);
+        console.log("Voice dictation mounted");
         this._isMounted = true;
+        console.log("_isMounted: ", this._isMounted);
     }
 
     onSpeechStart = (e: any) => {
         console.log('onSpeechStart: ', e);
-        this.setState({started: true})
+        console.log("onspeechstart _isMounted ", this._isMounted);
+        //this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({started: true, end: false});
+        }
     }
 
     onSpeechRecognized = (e: any) => {
@@ -80,20 +81,21 @@ class VoiceDictation extends Component<Props, State> {
 
     onSpeechEnd = (e: any) => {
         console.log('onSpeechEnd: ', e);
-        var question : string = this.state.results.reduce((prev, current) => {
-            return prev + " " + current;
-        }, "");
-        this.props.updateQuestion(question);
-        if (this._isMounted) {
-            this.setState(END_STATE);
-        }
+        // var question : string = this.state.results.reduce((prev, current) => {
+        //     return prev + " " + current;
+        // }, "");
+        // this.props.updateQuestion(question);
+        // if (this._isMounted) {
+        //     this.setState(END_STATE);
+        // }
     }
 
     onSpeechError = (e: any) => {
         console.log('onSpeechError: ', e);
         //user does not speak or can't recognized
         var ERROR_MSG : string = "Can't recognize your voice";
-        this.props.updateQuestion(ERROR_MSG);
+        Alert.alert(ERROR_MSG);
+        //this.props.updateQuestion(ERROR_MSG);
         if (this._isMounted) {
             this.setState(END_STATE);
         }
@@ -101,17 +103,24 @@ class VoiceDictation extends Component<Props, State> {
 
     onSpeechResults = (e: SpeechResultsEvent) => {
         console.log('onSpeechResults: ', e);
-        if (e.value !== undefined) {
-            this.setState({results: e.value})
+        console.log(this.state);
+        if (this._isMounted && e.value !== undefined) {
+            console.log("speechResults inside");
+            var question : string = e.value.reduce((prev, current) => {
+                return prev + " " + current;
+            }, "");
+            this.props.updateQuestion(question)
+        } else {
+            console.log("speechResults outside");
         }
     };
     
-    onSpeechPartialResults = (e: SpeechResultsEvent) => {
-        console.log('onSpeechPartialResults: ', e);
-        this.setState({
-            partialResults: e.value,
-        });
-    };
+    // onSpeechPartialResults = (e: SpeechResultsEvent) => {
+    //     console.log('onSpeechPartialResults: ', e);
+    //     this.setState({
+    //         partialResults: e.value,
+    //     });
+    // };
 
     // onSpeechVolumeChanged = (e: any) => {
     //     console.log('onSpeechVolumeChanged: ', e);
@@ -120,13 +129,17 @@ class VoiceDictation extends Component<Props, State> {
     //     });
     // };
 
-    componentWillUnmount () {
+    async componentWillUnmount () {
+        console.log("Voice dictation will unmount");
         this._isMounted = false;
+        await Voice.removeAllListeners();
+        await Voice.destroy();
     }
 
     _startRecognizing = async () => {
         console.log("start recognizing voice");
-        this.setState(INIT_STATE);
+        if (this._isMounted) 
+            this.setState(INIT_STATE);
         try {
             await Voice.start('en-US');
         } catch (e) {
@@ -145,30 +158,48 @@ class VoiceDictation extends Component<Props, State> {
             
         } finally {
             console.log("wait until onSpeechEnd is called");
+            if (this._isMounted) {
+                this.setState(END_STATE);
+            }
         }
     }
 
     renderButton() {
-        if (this.state.started == false) {
-            return <Button title="Ask" onPress = {this._startRecognizing} />
-        } else {
-            return <Button title="Stop" onPress = {this._stopRecognizing} />
-        }
+        var title: string = !this.state.started ? "Record" : "Stop";
+        var handler = !this.state.started ? this._startRecognizing : this._stopRecognizing;
+        return (
+            <TouchableOpacity
+                style={styles.button}
+                onPress = {handler}>
+                <Text style={styles.text}>{title}</Text>
+            </TouchableOpacity>
+        )
     }
+
     render() {
-        var result : string = this.state.results.reduce((prev, current) => {
-            return prev + " " + current;
-        }, "");
         return (
             <Fragment>
                 {this.renderButton()}
-                {
-                    result != "" &&
-                    <Text>{result}</Text>
-                }
             </Fragment>
         )
     }
 }
 
 export default VoiceDictation;
+
+const styles = StyleSheet.create({
+    button: {
+        textAlign: 'center',
+        alignSelf: 'center',
+        marginVertical: 10,
+        marginHorizontal: 20,
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: "rgb(210,56,58)",
+        color: "white",
+    },
+    text: {
+        color: "white",
+        textAlign: "center",
+    }
+});

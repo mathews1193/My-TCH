@@ -101,6 +101,37 @@ export default function PatientHomeScreen({patient}) {
     )
   };
 
+  const questions = [
+    {
+      id: 1,
+      text: "What is Covid-19?"
+    },
+    {
+      id: 2,
+      text: "What can I do to prevent Covid-19?"
+    },
+  ];
+
+  const renderQuestion = ({item}) => {
+    //TODO: style image with name
+    return (
+      <View style={styles.careplan}>
+        <Text>{item.text}</Text>
+      </View>
+    )
+  };
+
+  const answered_questions = [
+    {
+      id: 1,
+      text: "Should I get the vaccine?"
+    },
+    {
+      id: 2,
+      text: "Should I not wearing the mask after vaccination?"
+    },
+  ];
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -136,6 +167,24 @@ export default function PatientHomeScreen({patient}) {
         
       </View> */}
       <VoiceAssistScreen style={styles.providers}/>
+      <View style={styles.providers}>
+      <Text style={styles.providertitle}>Your Questions</Text>
+        <FlatList
+          data={questions}
+          renderItem={renderQuestion}
+          keyExtractor={(item) => item.id.toString()}
+          
+        />
+      </View>
+      <View style={styles.providers}>
+      <Text style={styles.providertitle}>Answered Questions</Text>
+        <FlatList
+          data={answered_questions}
+          renderItem={renderQuestion}
+          keyExtractor={(item) => item.id.toString()}
+          
+        />
+      </View>
       </ScrollView>
      
     </SafeAreaView>

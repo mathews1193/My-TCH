@@ -12,6 +12,9 @@ import LoginScreen from './screens/LoginScreen';
 
 import * as RootNavigation from './RootNavigation';
 
+//Testing
+import PatientHomeScreen from './screens/PatientHomeScreen';
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -40,9 +43,12 @@ export default function App() {
   if (!isLoadingComplete) {
     return null;
   } else {
+    //test data
+    const patient = {id: 123, room: "B231", name: "Luther"} 
     return (
       <SafeAreaProvider>
-        <LoginScreen />
+        <PatientHomeScreen patient = {patient}/>
+        {/* <LoginScreen /> */}
         {/* <Navigation colorScheme={colorScheme}/>
          <StatusBar /> */}
       </SafeAreaProvider>

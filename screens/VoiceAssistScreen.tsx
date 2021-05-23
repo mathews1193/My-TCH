@@ -1,20 +1,23 @@
-import React, { Component } from 'react';
-import { Button, StyleSheet } from 'react-native';
+import React, { Component, Fragment } from 'react';
+import { Button, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { Text, View } from '../components/Themed';
 import VoiceDictation from '../components/VoiceDictation';
 import * as Permissions from "expo-permissions";
+import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
 var ERROR_MSG : string = "Can't recognize your voice";
 
 type State = {
   question: string;
   hasQuestion: boolean;
+  style: any;
 }
 
 class VoiceAssistScreen extends Component<State> {
   state = {
-    question: "Waiting for question...",
-    hasQuestion: false
+    nonRecordText: "",
+    question: "",
+    askQuestionPressed: false,
   }
 
   
@@ -33,11 +36,19 @@ class VoiceAssistScreen extends Component<State> {
     }
   }
 
-  updateQuestion = (question: string) => {
-    this.setState({question: question, hasQuestion: question != ERROR_MSG});
+  componentWillUnmount () {
+    console.log("Voice assistscreen will unmount");
   }
+  updateQuestion = (recordedText: string) => {
+    console.log("called updatequestion");
+    var result: string = this.state.nonRecordText + " " + recordedText;
+    this.setState({question: result});
+  }
+  handleTextChange = (text: string) => {
+    this.setState({question: text, nonRecordText: text});
+  }
+
   sendQuestion = async () => {
-    //Setup POST 
     let userId = 1;
     const SERVER_HOST = "http://localhost:3003";
     const API = `${SERVER_HOST}/patient/${userId}/question`;
@@ -54,46 +65,72 @@ class VoiceAssistScreen extends Component<State> {
     });
     const responseJson = await response.json();
     console.log("got response: ", responseJson);
-    this.setState({question: "Your question is sent to the medical team", hasQuestion: false})
+    this.setState({question: "", askQuestionPressed: false, nonRecordText: "",})
   }
 
   render() {
     return (
-      <View style={styles.container}> 
-        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-        <Text>Do you have a question for your team?</Text> 
-        <Text>Do you need information on your care plan?</Text>
-        <Text>Record your question below for your team.</Text>
-        <Text style={styles.title}>Voice Assistant</Text>
-        <View style={styles.button}>
-        <VoiceDictation updateQuestion={this.updateQuestion}/>
-        </View>
-        <Text>{this.state.question}</Text>
-        {this.state.hasQuestion && <Button title="Send Question" onPress={this.sendQuestion} />}
+      <View style={this.props.style}> 
+        <Text style={styles.title}>Do you have questions for your team?</Text> 
+        <Text>Don't hesitate to ask us questions. You can write them out or send a voice note.</Text>
+        <TouchableOpacity style={styles.askButton} onPress={() => this.setState({askQuestionPressed: true})}>
+          <Text style={styles.askText}>Ask a question</Text>
+        </TouchableOpacity>
+        {this.state.askQuestionPressed &&
+            <Fragment>
+              <TextInput 
+              multiline
+              numberOfLines={4}
+              style={styles.askInput} 
+              onChangeText={(text) => this.handleTextChange(text)}
+              placeholder="Type or record your question"
+              value={this.state.question}
+            />
+            <VoiceDictation updateQuestion={this.updateQuestion}/>
+          </Fragment>
+        }
+        {!this.state.askQuestionPressed &&
+            null
+        }
+        {this.state.question !== "" &&
+          <TouchableOpacity style={styles.askButton} onPress={this.sendQuestion}>
+            <Text style={styles.askText}>Send Question</Text>
+          </TouchableOpacity>
+        }
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   title: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     marginTop: 30,
+  },
+  askButton: {
+    flex: 1,
+    marginVertical: 10,
+    marginHorizontal: 20,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "rgb(210,56,58)",
+    color: "white",
+  },
+  askText: {
+    color: "white",
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  askInput: {
+    textAlignVertical: 'top',
+    borderWidth: 1,
+    borderColor: "rgb(210,56,58)",
+    height: 40,
   },
   button: {
     marginTop:40,
     height: 90,
-    width: '80%',
-  },
-  separator: {
-    marginVertical: 5,
-    height: 1,
     width: '80%',
   },
 });

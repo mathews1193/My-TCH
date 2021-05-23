@@ -18,6 +18,4 @@ target 'techdoc' do
   #     flipper_post_install(installer)
   #   end
   # end
-  pod 'react-native-voice', :path => '../node_modules/@react-native-voice/voice'
-
 end

@@ -7,6 +7,7 @@ import * as RootNavigation from '../RootNavigation';
 import Navigation from '../navigation';
 import useColorScheme from '../hooks/useColorScheme';
 import DoctorHomeScreen from '../screens/DoctorHomeScreen';
+import PatientHomeScreen from '../screens/PatientHomeScreen';
 
 export default function LoginScreen() {
   const [loginRole, setLoginRole] = useState("");
@@ -16,7 +17,7 @@ export default function LoginScreen() {
 
   const ROLE = {patient: "patient", doctor: "doctor"};
   const colorScheme = useColorScheme();
-
+ 
   const loginHandler = () => {
     if (loginRole == ROLE.patient) {
       console.log("welcome patient");
@@ -89,8 +90,9 @@ export default function LoginScreen() {
     }
   } else {
     if (loginRole === ROLE.patient) {
-      
-      return (<Navigation colorScheme={colorScheme}/>)
+      //test data
+      const patient = {id: 878000, room: "B231", name: "Luther"};
+      return (<PatientHomeScreen patient={patient}/>)
     } else if (loginRole === ROLE.doctor) {
       return (<DoctorHomeScreen navigation={{}} />) 
     }

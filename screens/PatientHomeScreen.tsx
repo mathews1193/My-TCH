@@ -23,6 +23,8 @@ import { SafeAreaView, FlatList, StatusBar, StyleSheet, TouchableOpacity, Image,
 import VoiceAssistScreen from './VoiceAssistScreen';
 import {getQuestionsUri, sendGetRequest} from '../server_api';
 
+import database from '@react-native-firebase/database';
+
 export default function PatientHomeScreen({patient}) {
   const provider_data = [
     {
@@ -60,44 +62,14 @@ export default function PatientHomeScreen({patient}) {
       </View>
     )
   }
-  const careplan_data = [
-    {
-      id: 1,
-      date: "May 22, 2021 12:00pm",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 2,
-      date: "May 22, 2021 6:00pm",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 3,
-      date: "May 24, 2021 8:00am",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 4,
-      date: "May 22, 2021 12:00pm",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 5,
-      date: "May 22, 2021 6:00pm",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 6,
-      date: "May 24, 2021 8:00am",
-      plan: "Provide oxygen",
-    },
-  ];
+  const [careplan_data ,addCarePlan] = useState([]);
+  
   const renderCarePlan = ({item}) => {
     //TODO: style image with name
     return (
       <View style={styles.careplan}>
-        <Text>{item.date}</Text>
-        <Text>{item.plan}</Text>
+        <Text style={{fontWeight: 'bold'}}>Plan</Text>
+        <Text>{item.content}</Text>
       </View>
     )
   };
@@ -151,6 +123,27 @@ export default function PatientHomeScreen({patient}) {
     }
     if (questions.length === 0)
       fetchQuestions();
+  }, [])
+
+  //get care plans from database
+  useEffect( () => {
+    const refPlan = database().ref('care_plans');
+    // const onPlanChange = refPlan.on("value", (snapshot) => {
+    //   console.log("care plans from listener", snapshot.val());
+    // })
+    const refDetail = refPlan.orderByChild('patientId').equalTo(patient.id.toString());
+    const onPlanChange = refDetail.on("value", (snapshot) => {
+      console.log("patient id" , patient.id);
+      console.log("care plans from listener", snapshot.val());
+      const result = snapshot.val();
+      var plans = [];
+      for (var i in result) {
+            plans.push(result[i]);
+      }
+      console.log("care plans ", plans);
+      addCarePlan(plans);
+    })
+    return () => refDetail.off('value', onPlanChange);
   }, [])
 
   

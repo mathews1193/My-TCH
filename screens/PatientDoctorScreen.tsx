@@ -24,6 +24,7 @@ import VoiceAssistScreen from './VoiceAssistScreen';
 import {getQuestionsUri, sendGetRequest, getSendCarePlanUri, getCarePlansUri} from '../server_api';
 
 export default function PatientDoctorScreen({patient, provider}) {
+
   const provider_data = [
     {
       id: 1,
@@ -120,10 +121,11 @@ export default function PatientDoctorScreen({patient, provider}) {
       fetchQuestions();
   }, [])
 
+  //careplans update
   useEffect( () => {
     async function fetchCarePlans() {
       console.log("called careplan");
-      const uri = getCarePlansUri(provider.id);
+      const uri = getCarePlansUri(provider.id, patient.id);
       console.log("called careplan: ", uri);
       const responseJson = await  sendGetRequest(uri);
       console.log("care plans ", responseJson);
@@ -132,6 +134,8 @@ export default function PatientDoctorScreen({patient, provider}) {
    
     if(careplan_data.length === 0)
       fetchCarePlans();
+    
+    //listening to changes
       
   }, [])
 

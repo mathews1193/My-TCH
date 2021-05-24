@@ -55,8 +55,8 @@ export default function App() {
     return (
       <SafeAreaProvider>
         {/* <PatientHomeScreen patient = {patient}/> */}
-        <PatientDoctorScreen patient={patient} provider={provider}/>
-        {/* <LoginScreen /> */}
+        {/* <PatientDoctorScreen patient={patient} provider={provider}/> */}
+        <LoginScreen />
         {/* <Navigation colorScheme={colorScheme}/>
          <StatusBar /> */}
       </SafeAreaProvider>

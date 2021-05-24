@@ -171,7 +171,7 @@ export default function PatientHomeScreen({patient}) {
           data={provider_data}
           renderItem={renderImage}
           keyExtractor={(item) => item.id.toString()}
-          style={styles.providerimages}
+          style={styles.providerimage}
         />
       </View>
       <View style={styles.providers}>

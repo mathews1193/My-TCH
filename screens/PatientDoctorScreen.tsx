@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: 'flex-start',
     marginVertical: 20,
-    marginHorizontal: 30,
+    marginHorizontal: 140,
     width: 130,
     height: 110,
     resizeMode: 'stretch',

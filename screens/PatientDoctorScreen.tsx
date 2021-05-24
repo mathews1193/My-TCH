@@ -27,24 +27,24 @@ export default function PatientDoctorScreen({patient, provider}) {
   const provider_data = [
     {
       id: 1,
-      uri: "https://firebasestorage.googleapis.com/v0/b/tech-doc-3fd16.appspot.com/o/shutterstock_174716381.jpg?alt=media&token=a6f98101-bbf3-4460-8cd0-2701acf3eda0",
+      uri: "https://i.ibb.co/zRL5XHZ/African-american-doctor-man-Health-care-medical-background.jpg",
       name: 'Dr. Tony Stark',
       //add title
     },
     {
       id: 2,
-      uri: 'https://firebasestorage.googleapis.com/v0/b/tech-doc-3fd16.appspot.com/o/shutterstock_1724693776.jpg?alt=media&token=3ba690f2-8357-4377-8c11-7d94b2b89a1b',
+      uri: 'https://i.ibb.co/RhgwW54/Smiling-female-doctor-with-a-folder-in-uniform-standing.jpg',
       name: 'Dr. Carole Danver',
     },
     {
       id: 3,
-      uri: 'https://firebasestorage.googleapis.com/v0/b/tech-doc-3fd16.appspot.com/o/shutterstock_1760306810.jpg?alt=media&token=e3aab54c-f351-4988-ab2b-db03b7e5e877',
       name: 'Bruce Banner',
+      uri: 'https://i.ibb.co/T00McLj/Portrait-of-young-male-nurse.jpg',
     },
     {
       id: 4,
-      uri: 'https://firebasestorage.googleapis.com/v0/b/tech-doc-3fd16.appspot.com/o/shutterstock_1931958161.jpg?alt=media&token=c0c4473b-72be-41f8-9ddc-ce1404943ca4',
-      name: 'Steve Roger',
+      uri: 'https://i.ibb.co/M2SdQYT/Portrait-Of-Smiling-Female-Doctor-Wearing-White-Coat-With-Stethoscope-In-Hospital-Office.jpg',
+      name: 'Elsa Frost',
     },
   ];
   const renderImage = ({item}) => {

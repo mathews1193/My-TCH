@@ -19,6 +19,7 @@ Answered questions: list<answered question>
 --EndView--
 */
 import React, {useState ,useEffect} from 'react';
+import { Appbar } from 'react-native-paper';
 import { SafeAreaView, FlatList, StatusBar, StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
 import VoiceAssistScreen from './VoiceAssistScreen';
 import {getQuestionsUri, sendGetRequest, getSendCarePlanUri, getCarePlansUri} from '../server_api';
@@ -51,6 +52,11 @@ export default function PatientDoctorScreen({patient, provider}) {
     //TODO: style image with name
     return (
       <View>
+        <Appbar style={styles.top}>
+   <Appbar.Action
+     icon="archive"
+     onPress={() => navigation.navigate('LoginScreen'}
+    /> </Appbar>
         <Image
           style={styles.providerimage}
           source={{

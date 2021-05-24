@@ -249,6 +249,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
+    marginHorizontal:10,
     fontSize: 18,
   },
   noti: {

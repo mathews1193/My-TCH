@@ -47,6 +47,11 @@ export default {
               PatientHomeScreen: 'seven',
             },
           },
+          Login: {
+            screens: {
+              LoginScreen: 'eight',
+            },
+          },
         },
       },
       NotFound: '*',

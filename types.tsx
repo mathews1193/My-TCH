@@ -10,6 +10,7 @@ export type RootStackParamList = {
   Questions:undefined;
   PatientHome:undefined;
   DoctorHome:undefined;
+  Login:undefined;
 };
 
 export type BottomTabParamList = {

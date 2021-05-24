@@ -18,6 +18,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { navigationRef } from '../RootNavigation';
 import PatientHomeScreen from '../screens/PatientHomeScreen';
 import PatientDoctorScreen from '../screens/PatientDoctorScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -41,6 +42,7 @@ function RootNavigator() {
       <Stack.Screen name="Questions" component={QuestionsScreen} />
       <Stack.Screen name="PatientHome" component={PatientDoctorScreen} />
       <Stack.Screen name="DoctorHome" component={PatientHomeScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

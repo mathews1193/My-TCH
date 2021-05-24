@@ -8,6 +8,8 @@ export type RootStackParamList = {
   NotFound: undefined; 
   CarePlan:undefined;
   Questions:undefined;
+  PatientHome:undefined;
+  DoctorHome:undefined;
 };
 
 export type BottomTabParamList = {

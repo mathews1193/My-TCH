@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Text, View} from '../components/Themed';
 import messaging from '@react-native-firebase/messaging';
 import app from '@react-native-firebase/app';
+import PatientDoctorScreen from './PatientDoctorScreen';
 
 //import firebase from '../components/Firebase';
 const DATA = [
@@ -45,7 +46,11 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
   </Fragment>
 );
 
-export default function DoctorHomeScreen( { navigation } ) {
+ //test data
+  const patient = {id: 878000, room: "B231", name: "Luther"};
+  const provider = {id: "d101", name: "Pamela"};
+  
+export default function DoctorHomeScreen( { navigation }) {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => {
@@ -55,7 +60,7 @@ export default function DoctorHomeScreen( { navigation } ) {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => navigation.navigate('DoctorHome')}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />

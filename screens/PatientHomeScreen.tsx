@@ -46,7 +46,7 @@ export default function PatientHomeScreen({patient}) {
       name: 'Xarox',
     },
   ];
-  const renderImage = ({item}) => {
+  const renderImage = ({ item }) => {
     //TODO: style image with name
     return (
       <View>
@@ -163,7 +163,7 @@ export default function PatientHomeScreen({patient}) {
           uri: 'https://texaschildrensannualreport.org/2017/assets/img/logo-intro-red.png',
         }}
       />
-      <Text>Impatient care guide for: {patient.name}</Text>
+      <Text style={styles.title}>Impatient care guide for: {patient.name}</Text>
       <View style={styles.providers}>
         <Text style={styles.providertitle}>Your care team</Text>
         <FlatList
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
   },
   noti: {
     fontSize: 16,
@@ -260,8 +260,8 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: 'flex-start',
     marginVertical: 20,
-    marginHorizontal: 30,
-    width: 130,
+    marginHorizontal: 100,
+    width: 180,
     height: 110,
     resizeMode: 'stretch',
   },

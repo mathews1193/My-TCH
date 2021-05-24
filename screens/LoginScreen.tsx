@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import {SafeAreaView, TextInput,
-   Button, Image, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+   Button, Image, StyleSheet, TouchableOpacity, StatusBar, ImageBackground } from 'react-native';
 
 import { Text, View} from '../components/Themed';
 import * as RootNavigation from '../RootNavigation';
 import Navigation from '../navigation';
 import useColorScheme from '../hooks/useColorScheme';
 import DoctorHomeScreen from '../screens/DoctorHomeScreen';
+import PatientHomeScreen from './PatientHomeScreen';
+import PatientDoctorScreen from './PatientDoctorScreen';
+import messaging from '@react-native-firebase/messaging';
+import app from '@react-native-firebase/app';
 
 export default function LoginScreen() {
   const [loginRole, setLoginRole] = useState("");
@@ -16,6 +20,28 @@ export default function LoginScreen() {
 
   const ROLE = {patient: "patient", doctor: "doctor"};
   const colorScheme = useColorScheme();
+
+  //test data
+  const patient = {id: 878000, room: "B231", name: "Luther"};
+  const provider = {id: "d101", name: "Pamela"};
+
+  const image = { uri: "https://images.pexels.com/photos/4067908/pexels-photo-4067908.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" };
+  const image1 = { uri: "https://images.pexels.com/photos/2835436/pexels-photo-2835436.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" };
+
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled = 
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  
+      if (enabled) {
+        console.log('Authorization status:', authStatus);
+        const token = await messaging().getToken();
+        console.log('my token: ', token);
+      }
+  }
+  
+  requestUserPermission();
 
   const loginHandler = () => {
     if (loginRole == ROLE.patient) {
@@ -34,34 +60,37 @@ export default function LoginScreen() {
     if (loginRole === "") {
       return  (
         <View style={styles.containerlogin}>
+          <ImageBackground source={image} style={styles.image}>
           <Image
             style={styles.logo}
             source={{
-              uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
+              uri: 'https://waystogive.texaschildrens.org/assets/images/tch-logo-full-color.png',
             }}
           />
+         
+          <Text style={styles.title}>Welcome to TCH Mycare!</Text>
           <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-          <Text style={styles.title}>Welcome to TechDoc</Text>
-
           <TouchableOpacity onPress={() => setLoginRole(ROLE.patient)} style={[styles.roleButton]}>
             <Text style={[styles.roleText]}>Patient</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setLoginRole(ROLE.doctor)} style={[styles.roleButton]}>
             <Text style={[styles.roleText]}>Medical Provider</Text>
           </TouchableOpacity>
+          </ImageBackground>
         </View>
       );
     } else {
       return (
         <View style={styles.containerlogin}>
+          <ImageBackground source={image1} style={styles.image}>
           <Image
             style={styles.logo}
             source={{
-              uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
+              uri: 'https://waystogive.texaschildrens.org/assets/images/tch-logo-full-color.png',
             }}
           />
+          <Text style={styles.title}> Welcome!</Text>
           <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-          <Text style={styles.title}>Login</Text>
           
           <TextInput
             style={styles.input}
@@ -84,15 +113,16 @@ export default function LoginScreen() {
           <TouchableOpacity onPress={() => setLoginRole("")} style={[styles.loginButton]}>
             <Text style={[styles.loginText]}>Back</Text>
           </TouchableOpacity>
+          </ImageBackground>
         </View>
       )
     }
   } else {
     if (loginRole === ROLE.patient) {
       
-      return (<Navigation colorScheme={colorScheme}/>)
+      return (<PatientHomeScreen patient={{patient}}/>)
     } else if (loginRole === ROLE.doctor) {
-      return (<DoctorHomeScreen navigation={{}} />) 
+      return (<DoctorHomeScreen /> ) 
     }
   }
 }
@@ -110,10 +140,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
 
   },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    width:'100%',
+    height:'100%',
+  },
   roleButton: {
     alignItems: 'center',
     height: 40,
-    marginVertical: 20,
+    marginVertical: 50,
     marginHorizontal: 40, 
     backgroundColor: "blue",
     borderRadius: 10, 
@@ -147,20 +184,22 @@ const styles = StyleSheet.create({
  
   input: {
     alignItems: 'flex-start',
+    backgroundColor:"#e6e6e6",
     height: 40,
     marginVertical: 20,
     marginHorizontal: 40,
     borderWidth: 1,
   },
   logo: {
-    marginTop: 40,
-    width: 100,
-    height: 100,
+    marginTop: 5,
+    width: 170,
+    height: 120,
     resizeMode: 'stretch',
     alignSelf: 'center',
   },
   separator: {
     marginVertical: 2,
+    marginHorizontal:30,
     height: 1,
     width: '80%',
   },

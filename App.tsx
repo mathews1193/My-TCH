@@ -16,7 +16,7 @@ import * as RootNavigation from './RootNavigation';
 import PatientHomeScreen from './screens/PatientHomeScreen';
 import PatientDoctorScreen from './screens/PatientDoctorScreen';
 
-export default function App() {
+export default function App( {navigation}) {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
@@ -32,7 +32,7 @@ export default function App() {
       Alert.alert(title, question);
       
 
-      RootNavigation.navigate('Doctor', {});
+      navigation.navigate("PatientHome");
     });
 
     messaging().onNotificationOpenedApp(remoteMessage => {
@@ -49,14 +49,12 @@ export default function App() {
   if (!isLoadingComplete) {
     return null;
   } else {
-    //test data
-    const patient = {id: 878000, room: "B231", name: "Luther"};
-    const provider = {id: "d101", name: "Pamela"};
+    
     return (
       <SafeAreaProvider>
-        {/* <PatientHomeScreen patient = {patient}/> */}
-        <PatientDoctorScreen patient={patient} provider={provider}/>
-        {/* <LoginScreen /> */}
+        {/* <PatientHomeScreen patient = {patient}/><PatientDoctorScreen patient={patient} provider={provider}/> */}
+        
+        <LoginScreen />
         {/* <Navigation colorScheme={colorScheme}/>
          <StatusBar /> */}
       </SafeAreaProvider>

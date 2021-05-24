@@ -37,6 +37,16 @@ export default {
               QuestionsScreen: 'five',
             },
           },
+          PatientHome: {
+            screens: {
+              PatientDoctorScreen: 'six',
+            },
+          },
+          DoctorHome: {
+            screens: {
+              PatientHomeScreen: 'seven',
+            },
+          },
         },
       },
       NotFound: '*',

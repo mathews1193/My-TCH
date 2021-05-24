@@ -11,7 +11,7 @@ import PatientDoctorScreen from './PatientDoctorScreen';
 const DATA = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    patientName: "Paula Martinez",
+    patientName: "Lex Luther",
     room: "Room 1001",
     hasQuestion: 1,
   },
@@ -24,7 +24,7 @@ const DATA = [
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
     patientName: "Jean Grey",
-    room: "Room 1001",
+    room: "Room 3003",
     hasQuestion: 0,
   },
 ];
@@ -53,6 +53,10 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
 export default function DoctorHomeScreen( { navigation }) {
   const [selectedId, setSelectedId] = useState(null);
 
+  const navigateDetail = () => {
+    console.log("to patient page");
+  }
+
   const renderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? "blue" : "white";
     const color = item.id === selectedId ? 'black' : 'black';
@@ -60,7 +64,7 @@ export default function DoctorHomeScreen( { navigation }) {
     return (
       <Item
         item={item}
-        onPress={() => navigation.navigate('DoctorHome')}
+        onPress={() => navigateDetail()}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />

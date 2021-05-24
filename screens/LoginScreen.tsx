@@ -120,7 +120,7 @@ export default function LoginScreen() {
   } else {
     if (loginRole === ROLE.patient) {
       
-      return (<PatientHomeScreen patient={{patient}}/>)
+      return (<PatientHomeScreen patient={patient}/>)
     } else if (loginRole === ROLE.doctor) {
       return (<DoctorHomeScreen /> ) 
     }

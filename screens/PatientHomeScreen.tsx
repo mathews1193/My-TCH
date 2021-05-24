@@ -22,8 +22,12 @@ import React, {useState ,useEffect} from 'react';
 import { SafeAreaView, FlatList, StatusBar, StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
 import VoiceAssistScreen from './VoiceAssistScreen';
 import {getQuestionsUri, sendGetRequest} from '../server_api';
+import { Appbar } from 'react-native-paper';
+
+import database from '@react-native-firebase/database';
 
 export default function PatientHomeScreen({patient}) {
+  console.log("my patient ", patient);
   const provider_data = [
     {
       id: 1,
@@ -46,7 +50,7 @@ export default function PatientHomeScreen({patient}) {
       name: 'Xarox',
     },
   ];
-  const renderImage = ({ item }) => {
+  const renderImage = ({item}) => {
     //TODO: style image with name
     return (
       <View>
@@ -60,44 +64,14 @@ export default function PatientHomeScreen({patient}) {
       </View>
     )
   }
-  const careplan_data = [
-    {
-      id: 1,
-      date: "May 22, 2021 12:00pm",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 2,
-      date: "May 22, 2021 6:00pm",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 3,
-      date: "May 24, 2021 8:00am",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 4,
-      date: "May 22, 2021 12:00pm",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 5,
-      date: "May 22, 2021 6:00pm",
-      plan: "Provide oxygen",
-    },
-    {
-      id: 6,
-      date: "May 24, 2021 8:00am",
-      plan: "Provide oxygen",
-    },
-  ];
+  const [careplan_data ,addCarePlan] = useState([]);
+  
   const renderCarePlan = ({item}) => {
     //TODO: style image with name
     return (
       <View style={styles.careplan}>
-        <Text>{item.date}</Text>
-        <Text>{item.plan}</Text>
+        <Text style={{fontWeight: 'bold'}}>Plan</Text>
+        <Text>{item.content}</Text>
       </View>
     )
   };
@@ -143,7 +117,7 @@ export default function PatientHomeScreen({patient}) {
   //get questions from database
   useEffect( () => {
     async function fetchQuestions() {
-      const uri = getQuestionsUri(patient.id);
+      const uri = getQuestionsUri(patient.id.toString());
 
       const responseJson = await  sendGetRequest(uri);
       console.log("questions ", responseJson);
@@ -151,6 +125,24 @@ export default function PatientHomeScreen({patient}) {
     }
     if (questions.length === 0)
       fetchQuestions();
+  }, [])
+
+  //get care plans from database
+  useEffect( () => {
+    const refPlan = database().ref('care_plans');
+    const refDetail = refPlan.orderByChild('patientId').equalTo(patient.id.toString());
+    const onPlanChange = refDetail.on("value", (snapshot) => {
+      console.log("patient id" , patient.id);
+      console.log("care plans from listener", snapshot.val());
+      const result = snapshot.val();
+      var plans = [];
+      for (var i in result) {
+            plans.push(result[i]);
+      }
+      console.log("care plans ", plans);
+      addCarePlan(plans);
+    })
+    return () => refDetail.off('value', onPlanChange);
   }, [])
 
   
@@ -163,7 +155,9 @@ export default function PatientHomeScreen({patient}) {
           uri: 'https://texaschildrensannualreport.org/2017/assets/img/logo-intro-red.png',
         }}
       />
-      <Text style={styles.title}>Impatient care guide for: {patient.name}</Text>
+      <Text style={{fontWeight: 'bold', fontSize: 20, margin: 20, padding: 10}}>Impatient care guide for:
+        <Text style={{fontWeight: 'bold', fontSize: 20}}>  {patient.name}</Text> 
+      </Text>
       <View style={styles.providers}>
         <Text style={styles.providertitle}>Your care team</Text>
         <FlatList
@@ -171,7 +165,7 @@ export default function PatientHomeScreen({patient}) {
           data={provider_data}
           renderItem={renderImage}
           keyExtractor={(item) => item.id.toString()}
-          style={styles.providerimage}
+          style={styles.providerimages}
         />
       </View>
       <View style={styles.providers}>
@@ -249,8 +243,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    marginHorizontal:10,
-    fontSize: 18,
+    fontSize: 16,
   },
   noti: {
     fontSize: 16,
@@ -261,8 +254,8 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: 'flex-start',
     marginVertical: 20,
-    marginHorizontal: 100,
-    width: 180,
+    marginHorizontal: 30,
+    width: 130,
     height: 110,
     resizeMode: 'stretch',
   },
@@ -273,5 +266,11 @@ const styles = StyleSheet.create({
   },
   view: {
     flexDirection: "row",
-  }
+  },
+  top: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 40,
+  },
 });

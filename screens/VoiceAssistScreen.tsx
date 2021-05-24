@@ -13,6 +13,9 @@ type Props = {
   userId: string,
   style: any,
   updateQuestions: any,
+  addButtonTitle: string,
+  sendButtonTitle: string,
+  isPatient: boolean,
 }
 
 type State = {
@@ -81,13 +84,13 @@ class VoiceAssistScreen extends Component<Props, State> {
 
     return (
       <View style={this.props.style}> 
-        <Text style={styles.title}>Do you have questions for your team?</Text> 
-        <Text>Don't hesitate to ask us questions. You can write them out or send a voice note.</Text>
+        {this.props.isPatient && <Text style={styles.title}>Do you have questions for your team?</Text> }
+        {this.props.isPatient && <Text>Don't hesitate to ask us questions. You can write them out or send a voice note.</Text> }
         <TouchableOpacity 
           style={askStyle} 
           onPress={() => this.setState({askQuestionPressed: true})} 
           disabled={this.state.askQuestionPressed}>
-          <Text style={styles.askText}>Ask a question</Text>
+          <Text style={styles.askText}>{this.props.addButtonTitle}</Text>
         </TouchableOpacity>
         {this.state.askQuestionPressed &&
             <Fragment>
@@ -108,7 +111,7 @@ class VoiceAssistScreen extends Component<Props, State> {
         {this.state.question !== "" &&
           <View>
             <TouchableOpacity style={styles.sendButton} onPress={this.sendQuestion}>
-              <Text style={styles.askText}>Send Question</Text>
+              <Text style={styles.askText}>{this.props.sendButtonTitle}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.askButton} onPress={this.cancelQuestion}>
             <Text style={styles.askText}>Cancel</Text>

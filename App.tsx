@@ -14,6 +14,7 @@ import * as RootNavigation from './RootNavigation';
 
 //Testing
 import PatientHomeScreen from './screens/PatientHomeScreen';
+import PatientDoctorScreen from './screens/PatientDoctorScreen';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -52,7 +53,8 @@ export default function App() {
     const patient = {id: 878000, room: "B231", name: "Luther"} 
     return (
       <SafeAreaProvider>
-        <PatientHomeScreen patient = {patient}/>
+        {/* <PatientHomeScreen patient = {patient}/> */}
+        <PatientDoctorScreen patient={patient} />
         {/* <LoginScreen /> */}
         {/* <Navigation colorScheme={colorScheme}/>
          <StatusBar /> */}

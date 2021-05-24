@@ -23,27 +23,28 @@ import { SafeAreaView, FlatList, StatusBar, StyleSheet, TouchableOpacity, Image,
 import VoiceAssistScreen from './VoiceAssistScreen';
 import {getQuestionsUri, sendGetRequest} from '../server_api';
 
-export default function PatientHomeScreen({patient}) {
+export default function PatientDoctorScreen({patient}) {
   const provider_data = [
     {
       id: 1,
-      uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-      name: 'Pamela',
+      uri: "https://firebasestorage.googleapis.com/v0/b/tech-doc-3fd16.appspot.com/o/shutterstock_174716381.jpg?alt=media&token=a6f98101-bbf3-4460-8cd0-2701acf3eda0",
+      name: 'Dr. Tony Stark',
+      //add title
     },
     {
       id: 2,
-      uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-      name: 'Parag',
+      uri: 'https://firebasestorage.googleapis.com/v0/b/tech-doc-3fd16.appspot.com/o/shutterstock_1724693776.jpg?alt=media&token=3ba690f2-8357-4377-8c11-7d94b2b89a1b',
+      name: 'Dr. Carole Danver',
     },
     {
       id: 3,
-      uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-      name: 'Javier',
+      uri: 'https://firebasestorage.googleapis.com/v0/b/tech-doc-3fd16.appspot.com/o/shutterstock_1760306810.jpg?alt=media&token=e3aab54c-f351-4988-ab2b-db03b7e5e877',
+      name: 'Bruce Banner',
     },
     {
       id: 4,
-      uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-      name: 'Xarox',
+      uri: 'https://firebasestorage.googleapis.com/v0/b/tech-doc-3fd16.appspot.com/o/shutterstock_1931958161.jpg?alt=media&token=c0c4473b-72be-41f8-9ddc-ce1404943ca4',
+      name: 'Steve Roger',
     },
   ];
   const renderImage = ({item}) => {
@@ -60,7 +61,7 @@ export default function PatientHomeScreen({patient}) {
       </View>
     )
   }
-  const careplan_data = [
+  const [careplan_data, updateCarePlan] = useState([
     {
       id: 1,
       date: "May 22, 2021 12:00pm",
@@ -91,7 +92,7 @@ export default function PatientHomeScreen({patient}) {
       date: "May 24, 2021 8:00am",
       plan: "Provide oxygen",
     },
-  ];
+  ]);
   const renderCarePlan = ({item}) => {
     //TODO: style image with name
     return (
@@ -182,9 +183,10 @@ export default function PatientHomeScreen({patient}) {
           keyExtractor={(item) => item.id.toString()}
           
         />
+        <VoiceAssistScreen style={styles.providers} userId={patient.id} updateQuestions={updateQuestion}
+         addButtonTitle="Add a care plan" sendButtonTitle="Send your care plan" isPatient={false}/>
       </View>
-      <VoiceAssistScreen style={styles.providers} userId={patient.id} updateQuestions={updateQuestion}
-       addButtonTitle="Ask a question" sendButtonTitle="Send question" isPatient={true}/>
+      
       <View style={styles.providers}>
       <Text style={styles.providertitle}>Your Questions</Text>
         <FlatList

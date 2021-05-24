@@ -5,7 +5,7 @@ import VoiceDictation from '../components/VoiceDictation';
 import * as Permissions from "expo-permissions";
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
-import {getSendQuestionUri, sendPostRequest} from '../server_api';
+import {getSendCarePlanUri, getSendQuestionUri, sendPostRequest} from '../server_api';
 
 var ERROR_MSG : string = "Can't recognize your voice";
 
@@ -65,12 +65,26 @@ class VoiceAssistScreen extends Component<Props, State> {
     this.setState({question: text, nonRecordText: text});
   }
 
+  //TODO: refactor outside of this component
   sendQuestion = async () => {
     const uri = getSendQuestionUri(this.props.userId);
     console.log("Sending " + this.state.question + " to the medical team");
     const responseJson = await sendPostRequest(uri, {question: this.state.question});
     console.log("got response: ", responseJson);
     //state update
+    this.props.updateQuestions(responseJson);
+    this.setState({question: "", askQuestionPressed: false, nonRecordText: "",})
+  }
+
+  //TODO: refactor outside of this component
+
+  sendCarePlan = async () => {
+    const uri = getSendCarePlanUri(this.props.userId);
+    console.log("Sending " + this.state.question + " to the careplan data");
+    const responseJson = await sendPostRequest(uri, {care_plan: this.state.question});
+    console.log("got response: ", responseJson);
+    //state update
+    //update caerplan
     this.props.updateQuestions(responseJson);
     this.setState({question: "", askQuestionPressed: false, nonRecordText: "",})
   }
@@ -110,7 +124,7 @@ class VoiceAssistScreen extends Component<Props, State> {
         }
         {this.state.question !== "" &&
           <View>
-            <TouchableOpacity style={styles.sendButton} onPress={this.sendQuestion}>
+            <TouchableOpacity style={styles.sendButton} onPress={this.props.isPatient ? this.sendQuestion : this.sendCarePlan}>
               <Text style={styles.askText}>{this.props.sendButtonTitle}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.askButton} onPress={this.cancelQuestion}>

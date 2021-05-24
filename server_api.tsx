@@ -8,6 +8,14 @@ export function getQuestionsUri(userId: string) {
     return `${SERVER_HOST}/patient/${userId}/questions`;
 }
 
+export function getSendCarePlanUri(userId: string) {
+    return `${SERVER_HOST}/medical_provider/${userId}/care_plan`;
+}
+
+export function getCarePlansUri(userId: string) {
+    return `${SERVER_HOST}/medical_provider/${userId}/care_plans`;
+}
+
 export const sendGetRequest = async(uri:string) => {
     const response = await fetch(uri, {
         method: 'GET',

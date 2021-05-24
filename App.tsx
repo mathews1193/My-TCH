@@ -50,11 +50,12 @@ export default function App() {
     return null;
   } else {
     //test data
-    const patient = {id: 878000, room: "B231", name: "Luther"} 
+    const patient = {id: 878000, room: "B231", name: "Luther"};
+    const provider = {id: "d101", name: "Pamela"};
     return (
       <SafeAreaProvider>
         {/* <PatientHomeScreen patient = {patient}/> */}
-        <PatientDoctorScreen patient={patient} />
+        <PatientDoctorScreen patient={patient} provider={provider}/>
         {/* <LoginScreen /> */}
         {/* <Navigation colorScheme={colorScheme}/>
          <StatusBar /> */}

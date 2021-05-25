@@ -81,7 +81,7 @@ class VoiceAssistScreen extends Component<Props, State> {
   sendCarePlan = async () => {
     const uri = getSendCarePlanUri(this.props.userId);
     console.log("Sending " + this.state.question + " to the careplan data");
-    const responseJson = await sendPostRequest(uri, {care_plan: this.state.question});
+    const responseJson = await sendPostRequest(uri, {care_plan: this.state.question, patientId: "878000"});
     console.log("got response: ", responseJson);
     //state update
     //update caerplan

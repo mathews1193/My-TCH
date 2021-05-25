@@ -22,7 +22,7 @@ export default function LoginScreen() {
   const colorScheme = useColorScheme();
 
   //test data
-  const patient = {id: 878000, room: "B231", name: "Luther"};
+  const patient = {id: 878000, room: "B231", name: "Lex Luther"};
   const provider = {id: "d101", name: "Pamela"};
 
   const image = { uri: "https://images.pexels.com/photos/4067908/pexels-photo-4067908.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" };
@@ -122,7 +122,8 @@ export default function LoginScreen() {
       
       return (<PatientHomeScreen patient={patient}/>)
     } else if (loginRole === ROLE.doctor) {
-      return (<DoctorHomeScreen /> ) 
+      return (<PatientDoctorScreen patient={patient} provider={provider}/>)
+      // return (<DoctorHomeScreen /> ) 
     }
   }
 }

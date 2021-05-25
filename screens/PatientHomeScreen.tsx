@@ -31,23 +31,28 @@ export default function PatientHomeScreen({patient}) {
   const provider_data = [
     {
       id: 1,
-      uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-      name: 'Pamela',
+      uri: "https://i.ibb.co/zRL5XHZ/African-american-doctor-man-Health-care-medical-background.jpg",
+      name: 'Dr. Tony Stark',
+      role: 'Attending',
+      //add title
     },
     {
       id: 2,
-      uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-      name: 'Parag',
+      uri: 'https://i.ibb.co/RhgwW54/Smiling-female-doctor-with-a-folder-in-uniform-standing.jpg',
+      name: 'Dr. Carole Danver',
+      role: 'Fellow',
     },
     {
       id: 3,
-      uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-      name: 'Javier',
+      name: 'Bruce Banner',
+      uri: 'https://i.ibb.co/T00McLj/Portrait-of-young-male-nurse.jpg',
+      role: 'Nurse',
     },
     {
       id: 4,
-      uri: 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052012/texas-childrens.jpg?itok=tW6_xSJ6',
-      name: 'Xarox',
+      uri: 'https://i.ibb.co/M2SdQYT/Portrait-Of-Smiling-Female-Doctor-Wearing-White-Coat-With-Stethoscope-In-Hospital-Office.jpg',
+      name: 'Elsa Frost',
+      role: 'Respiratory Therapist',
     },
   ];
   const renderImage = ({item}) => {
@@ -60,7 +65,8 @@ export default function PatientHomeScreen({patient}) {
             uri: item.uri,
           }} 
         />
-        <Text>{item.name}</Text>
+        <Text style={{fontWeight: 'bold', textAlign: 'center', fontSize: 16}}>{item.name}</Text>
+        <Text style={{textAlign: 'center', fontSize: 16}}>{item.role}</Text>
       </View>
     )
   }
@@ -155,7 +161,7 @@ export default function PatientHomeScreen({patient}) {
           uri: 'https://texaschildrensannualreport.org/2017/assets/img/logo-intro-red.png',
         }}
       />
-      <Text style={{fontWeight: 'bold', fontSize: 20, margin: 20, padding: 10}}>Impatient care guide for:
+      <Text style={{fontWeight: 'bold', fontSize: 20, margin: 20, padding: 10}}>Inpatient care guide for:
         <Text style={{fontWeight: 'bold', fontSize: 20}}>  {patient.name}</Text> 
       </Text>
       <View style={styles.providers}>

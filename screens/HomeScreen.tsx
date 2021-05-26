@@ -11,7 +11,6 @@ import app from '@react-native-firebase/app';
 
 
 export default function HomeScreen( { navigation } ) {
-  requestUserPermission();
   return (
     <View style={styles.container}>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
@@ -25,21 +24,18 @@ export default function HomeScreen( { navigation } ) {
       <View style={styles.button}>
         <Button
         title="Medical Team"
-        type="outline"
         onPress={() => navigation.navigate('MedTeam')} 
         />
         </View>
         <View style={styles.button}>
         <Button
         title="Care Plan"
-        type="outline"
         onPress={() => navigation.navigate('CarePlan')} 
         />
         </View>
         <View style={styles.button}>
         <Button
         title="Questions"
-        type="outline"
         onPress={() => navigation.navigate('Questions')} 
         />
       </View>

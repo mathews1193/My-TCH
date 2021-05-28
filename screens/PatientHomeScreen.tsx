@@ -22,7 +22,6 @@ import React, {useState ,useEffect} from 'react';
 import { SafeAreaView, FlatList, StatusBar, StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
 import VoiceAssistScreen from './VoiceAssistScreen';
 import {getQuestionsUri, sendGetRequest} from '../server_api';
-import { Appbar } from 'react-native-paper';
 
 import database from '@react-native-firebase/database';
 
@@ -171,7 +170,7 @@ export default function PatientHomeScreen({patient}) {
           data={provider_data}
           renderItem={renderImage}
           keyExtractor={(item) => item.id.toString()}
-          style={styles.providerimages}
+          style={styles.providerimage}
         />
       </View>
       <View style={styles.providers}>

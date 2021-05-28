@@ -1,11 +1,8 @@
 import * as React from 'react';
 import { Button, Image } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 
 import { Text, View} from '../components/Themed';
-import messaging from '@react-native-firebase/messaging';
-import app from '@react-native-firebase/app';
 
 //import firebase from '../components/Firebase';
 
